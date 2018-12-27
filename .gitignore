@@ -1,7 +1,0 @@
-manifest.mf
-build.xml
-.gitattributes
-test
-nbproject
-build
-dist
