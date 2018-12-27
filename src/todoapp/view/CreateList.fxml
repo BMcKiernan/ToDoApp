@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="createTopAnchorPane" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #1976d2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.controller.CreateListController">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="350.0" layoutY="14.0" prefHeight="30.0" prefWidth="101.0" text="To-Do" textAlignment="CENTER" textFill="#fcfafa">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="createNewInnerAnchorPane" layoutX="1.0" layoutY="75.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXTextField fx:id="createNewListTitle" focusColor="#bbdefb" layoutX="193.0" layoutY="75.0" onAction="#titleEntered" prefHeight="37.0" prefWidth="416.0" promptText="Title" unFocusColor="#2196f3">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton fx:id="createNewListButton" layoutX="310.0" layoutY="388.0" onAction="#createList" prefHeight="25.0" prefWidth="181.0" style="-fx-background-color: #009688;" text="Create" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="194.0" layoutY="173.0" prefHeight="21.0" prefWidth="115.0" text="Category :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXDatePicker fx:id="createNewListDate" layoutX="203.0" layoutY="296.0" onAction="#deadlineEntered" prefHeight="31.0" prefWidth="215.0" />
+            <Label layoutX="189.0" layoutY="251.0" prefHeight="21.0" prefWidth="124.0" text="Deadline :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTimePicker fx:id="createNewListTime" layoutX="486.0" layoutY="299.0" onAction="#timeEntered" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="135.0" layoutY="303.0" prefHeight="17.0" prefWidth="65.0" text="Date:  ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="435.0" layoutY="305.0" prefHeight="17.0" prefWidth="44.0" text="Time: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="createNewListError" alignment="CENTER" layoutX="159.0" layoutY="350.0" prefHeight="17.0" prefWidth="485.0" text="Error" textAlignment="CENTER" textFill="RED" visible="false" />
+            <JFXComboBox fx:id="createNewListCategory" focusColor="#bbdefb" layoutX="304.0" layoutY="173.0" onAction="#categoryEntered" prefHeight="25.0" prefWidth="199.0" unFocusColor="#2196f3" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

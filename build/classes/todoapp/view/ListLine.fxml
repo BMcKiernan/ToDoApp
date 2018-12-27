@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="75.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.controller.ListLineController">
+   <children>
+      <CheckBox fx:id="lineCheckBox" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="0.0" style="-fx-outer-border: #000000;" />
+      <JFXTextField fx:id="lineTask" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="410.0" />
+      <DatePicker fx:id="lineDatePicker" layoutX="262.0" layoutY="11.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="listTopAnchorPane" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #1976d2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.controller.ListScreenController">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="350.0" layoutY="18.0" text="To-Do" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="listNewButton" layoutX="6.0" layoutY="47.0" onAction="#createNewList" style="-fx-background-color: #009688;" text="New List" textFill="#fcfafa" />
+      <JFXButton fx:id="listDeleteButton" layoutX="713.0" layoutY="14.0" onAction="#deleteList" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: #F44336;" text="Delete List" textFill="WHITE" visible="false" />
+      <JFXButton fx:id="listOpenButton" layoutX="713.0" layoutY="47.0" onAction="#openList" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: #484848;" text="Open List" textFill="#fcfcfc" visible="false" />
+      <AnchorPane fx:id="listInnerAnchorpane" layoutX="6.0" layoutY="100.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <TableView fx:id="listTableView" layoutX="20.0" layoutY="28.0" prefHeight="435.0" prefWidth="759.0">
+              <columns>
+                <TableColumn fx:id="listColumnListName" editable="false" prefWidth="233.0" text="List Name" />
+                <TableColumn fx:id="listColumnCategory" editable="false" prefWidth="111.0" text="Category" />
+                  <TableColumn fx:id="listColumnCreated" editable="false" prefWidth="163.0" text="Created" />
+                  <TableColumn fx:id="listColumnDeadline" editable="false" prefWidth="259.0" text="Deadline" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
