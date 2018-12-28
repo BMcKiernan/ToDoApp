@@ -24,7 +24,7 @@
                 <TableColumn fx:id="listColumnListName" editable="false" prefWidth="233.0" text="List Name" />
                 <TableColumn fx:id="listColumnCategory" editable="false" prefWidth="111.0" text="Category" />
                   <TableColumn fx:id="listColumnCreated" editable="false" prefWidth="163.0" text="Created" />
-                  <TableColumn fx:id="listColumnDeadline" editable="false" prefWidth="259.0" text="Deadline" />
+                  <TableColumn fx:id="listColumnDeadline" editable="false" prefWidth="252.0" text="Deadline" />
               </columns>
             </TableView>
          </children>

@@ -81,10 +81,6 @@ public class ListScreenController extends Application {
         toDoLists = FXCollections.observableArrayList();
         populateLists();
         //set nested deadline columns date and time and add to Deadline col
-        listColumnDeadline = new TableColumn<>("Deadline");
-        listColumnCategory = new TableColumn<>("Category");
-        listColumnListName = new TableColumn<>("List Name");
-        listColumnCreated = new TableColumn<>("Created");
         listColumnDeadlineDate = new TableColumn <ToDoList, LocalDate>("Date");
         listColumnDeadlineTime = new TableColumn <ToDoList, LocalTime>("Time");
         listColumnDeadline.getColumns().addAll(listColumnDeadlineDate, listColumnDeadlineTime);
