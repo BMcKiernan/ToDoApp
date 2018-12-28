@@ -1,11 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.controller.List">
-    
+<AnchorPane id="AnchorPane" fx:id="listTopAnchorPane" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #1976d2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="350.0" layoutY="18.0" text="To-Do" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <VBox fx:id="listVBox" layoutY="103.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
+         <children>
+            <Label fx:id="listLabel" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="List Title" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <JFXTreeTableView fx:id="listTreeTableView" prefHeight="346.0" prefWidth="800.0" />
+            <HBox prefHeight="45.0" prefWidth="800.0">
+               <children>
+                  <JFXButton fx:id="listAddButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #009688;" text="Add Item" textFill="WHITE" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets bottom="7.5" left="10.0" top="7.5" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXTextField fx:id="listTextField" alignment="CENTER" focusColor="#2196f3" prefHeight="30.0" prefWidth="448.0" promptText="Enter Description Here" style="-fx-prompt-text-fill: #1976d2;" unFocusColor="#1976d2">
+                     <HBox.margin>
+                        <Insets bottom="7.5" left="20.0" top="7.5" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <Separator orientation="VERTICAL" prefHeight="47.0" prefWidth="0.0" translateX="10.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Separator>
+                  <JFXDatePicker fx:id="listDatePicker" defaultColor="#1976d2" onAction="#datePicked">
+                     <HBox.margin>
+                        <Insets bottom="7.5" left="20.0" top="7.5" />
+                     </HBox.margin>
+                  </JFXDatePicker>
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <JFXDialog fx:id="listDialogBox" prefHeight="52.0" prefWidth="800.0" />
+         </children>
+      </VBox>
+      <JFXButton fx:id="listDeleteButton" layoutX="694.0" layoutY="40.0" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: #F44336;" text="Delete Item" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="480.0" AnchorPane.leftAnchor="694.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
+   </children>
 </AnchorPane>

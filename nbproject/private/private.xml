@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/controller/ListScreenController.java</file>
-            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/model/ToDoList.java</file>
             <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/ToDoApp.java</file>
             <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/controller/List.java</file>
-            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/controller/CreateListController.java</file>
-            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/view/List.fxml</file>
             <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/model/AppState.java</file>
-            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/view/ListScreen.fxml</file>
+            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/model/Task.java</file>
         </group>
     </open-files>
 </project-private>

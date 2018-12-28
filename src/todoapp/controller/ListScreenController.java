@@ -7,7 +7,9 @@ package todoapp.controller;
 
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -63,7 +65,8 @@ public class ListScreenController extends Application {
     @FXML
     private TableColumn<ToDoList, LocalDateTime> listColumnDeadline;
 
-
+    private TableColumn<ToDoList, LocalDate> listColumnDeadlineDate;
+    private TableColumn<ToDoList, LocalTime> listColumnDeadlineTime;
 
     @Override
     public void start(Stage stage) {
@@ -77,7 +80,21 @@ public class ListScreenController extends Application {
         appState = AppState.getInstance(); //add read from filesystem or db
         toDoLists = FXCollections.observableArrayList();
         populateLists();
+        //set nested deadline columns date and time and add to Deadline col
+        listColumnDeadline = new TableColumn<>("Deadline");
+        listColumnCategory = new TableColumn<>("Category");
+        listColumnListName = new TableColumn<>("List Name");
+        listColumnCreated = new TableColumn<>("Created");
+        listColumnDeadlineDate = new TableColumn <ToDoList, LocalDate>("Date");
+        listColumnDeadlineTime = new TableColumn <ToDoList, LocalTime>("Time");
+        listColumnDeadline.getColumns().addAll(listColumnDeadlineDate, listColumnDeadlineTime);
         
+        listColumnDeadlineDate.setCellValueFactory(new PropertyValueFactory<>("deadlineDate"));
+        listColumnDeadlineTime.setCellValueFactory(new PropertyValueFactory<>("deadlineTime"));
+        listColumnListName.setCellValueFactory(new PropertyValueFactory<>("listName"));
+        listColumnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        listColumnCreated.setCellValueFactory(new PropertyValueFactory<>("creationTime"));
+        listTableView.setItems(toDoLists);
         listTableView.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldVal, newVal) -> {
                 if(newVal != null){
@@ -90,11 +107,7 @@ public class ListScreenController extends Application {
                     listOpenButton.setVisible(false);
                 }
             });
-        listColumnDeadline.setCellValueFactory(new PropertyValueFactory<>("Deadline"));
-        listColumnListName.setCellValueFactory(new PropertyValueFactory<>("Title"));
-        listColumnCategory.setCellValueFactory(new PropertyValueFactory<>("Category"));
-        listColumnCreated.setCellValueFactory(new PropertyValueFactory<>("CreationTime"));
-        listTableView.setItems(toDoLists);
+
        
     }
     
@@ -121,7 +134,7 @@ public class ListScreenController extends Application {
         int n = JOptionPane.showConfirmDialog(null,"Permanently delete list?", "Confirmation needed", JOptionPane.YES_NO_OPTION);
         if(n == JOptionPane.YES_OPTION){
             toDoLists.remove(selectedList);
-            appState.remove(selectedList);
+            appState.removeList(selectedList);
         }
     }
 

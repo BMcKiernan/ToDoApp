@@ -70,7 +70,9 @@ public class CreateListController extends Application {
     private static DateTimeFormatter dateFormatter;
     private static final String timePattern = "hh:mm";
     private static DateTimeFormatter timeFormatter;
-
+    private LocalDate datePart;
+    private LocalTime timePart;
+    
     public CreateListController() {
         dateFormatter = DateTimeFormatter.ofPattern(datePattern);
         timeFormatter = DateTimeFormatter.ofPattern(timePattern);
@@ -105,29 +107,23 @@ public class CreateListController extends Application {
         }
         if (!title.isEmpty()) {
             ToDoList newList;
-            LocalDateTime deadline;
-            String tmp;
             if(!date.isEmpty() && !time.isEmpty()){
-                LocalDate datePart = LocalDate.parse(date);
-                LocalTime timePart = LocalTime.parse(time);
-                 deadline = LocalDateTime.of(datePart, timePart);
+                datePart = LocalDate.parse(date);
+                timePart = LocalTime.parse(time);
             }else if(!date.isEmpty() && time.isEmpty()){
-                LocalDate datePart = LocalDate.parse(date);
-                LocalTime timePart = LocalTime.MIDNIGHT;
-                deadline = LocalDateTime.of(datePart, timePart);
+                datePart = LocalDate.parse(date);
+                timePart = LocalTime.MIDNIGHT;
             }else if(date.isEmpty() && !time.isEmpty()){
-                LocalDate datePart = LocalDate.now().plusMonths(6);
-                LocalTime timePart = LocalTime.parse(time);
-                deadline = LocalDateTime.of(datePart, timePart);
+                datePart = LocalDate.now().plusMonths(6);
+                timePart = LocalTime.parse(time);
             }else{
-                LocalDate datePart = LocalDate.now().plusMonths(6);
-                LocalTime timePart = LocalTime.MIDNIGHT;
-                deadline = LocalDateTime.of(datePart, timePart);
+                datePart = LocalDate.now().plusMonths(6);
+                timePart = LocalTime.MIDNIGHT;
             }
             
             if(category.isEmpty())
                 category = "General";
-            newList = new ToDoList(title, category, deadline);
+            newList = new ToDoList(title, category, datePart, timePart);
             newList.setTasks(new ArrayList<Task>());
             appState.addList(newList);
             

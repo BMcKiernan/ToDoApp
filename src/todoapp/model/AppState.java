@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class AppState {
     
     private ArrayList<ToDoList> toDoLists;
-    
+    private ToDoList selectedList;
     private AppState() {
         toDoLists = new ArrayList<>();
     }
@@ -36,11 +36,15 @@ public class AppState {
         return toDoLists;
     }
     
-    public void add(ToDoList selectedList){
-        toDoLists.add(selectedList);
+    public void removeList(ToDoList list){
+        toDoLists.remove(list);
     }
     
-    public void remove(ToDoList selectedList){
-        toDoLists.remove(selectedList);
+    public void setSelectedList(ToDoList selectedList){
+        this.selectedList = selectedList;
+    }
+    
+    public ToDoList getSelectedList(){
+        return selectedList;
     }
 }

@@ -7,8 +7,7 @@ package todoapp.model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.time.LocalDate;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import java.time.format.DateTimeFormatter;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -16,17 +15,21 @@ import javafx.beans.property.SimpleStringProperty;
  * @author BriMc
  */
 public class Task extends RecursiveTreeObject<Task> {
-    private SimpleStringProperty description;
-    private SimpleObjectProperty<LocalDate> completionDate;
-    private SimpleBooleanProperty complete;
-    
+    public SimpleStringProperty description;
+    public SimpleStringProperty completionDate;
+    public boolean complete;
+    private final String pattern = "yyyy-MM-dd";
+    private static DateTimeFormatter dateFormatter;
     
     public Task(String description, LocalDate completionDate){
         this.description = new SimpleStringProperty(description);
-        this.completionDate = new SimpleObjectProperty(completionDate);
-        this.complete = new SimpleBooleanProperty(false);
+        this.complete = false;
+        dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        this.completionDate = new SimpleStringProperty(completionDate.format(dateFormatter));
     }
     
+    //Don't need this methods because access modifier must be public for 
+    //JFoenix JFXTreeTableColumn cell factories
     public String getDescription(){
         return description.get();
     }
@@ -35,20 +38,20 @@ public class Task extends RecursiveTreeObject<Task> {
         this.description = new SimpleStringProperty(description);
     }
     
-    public LocalDate getCompletionDate(){
+    public String getCompletionDate(){
         return completionDate.get();
     }
     
     public void setCompletionDate(LocalDate completionDate){
-        this.completionDate = new SimpleObjectProperty(completionDate);
+        this.completionDate = new SimpleStringProperty(completionDate.format(dateFormatter));
     }
     
-    public boolean getComplete(){
-        return complete.get();
+    public boolean isComplete(){
+        return complete;
     }
     
     public void setComplete(boolean complete){
-        this.complete = new SimpleBooleanProperty(complete);
+        this.complete = complete;
     }
     
 }

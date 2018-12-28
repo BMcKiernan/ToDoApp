@@ -46,7 +46,7 @@
                         <Insets />
                      </HBox.margin>
                   </Separator>
-                  <JFXDatePicker fx:id="listDatePicker" defaultColor="#1976d2">
+                  <JFXDatePicker fx:id="listDatePicker" defaultColor="#1976d2" onAction="#datePicked">
                      <HBox.margin>
                         <Insets bottom="7.5" left="20.0" top="7.5" />
                      </HBox.margin>

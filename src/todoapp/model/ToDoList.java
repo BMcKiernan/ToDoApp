@@ -5,7 +5,9 @@
  */
 package todoapp.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,26 +17,27 @@ import javafx.beans.property.SimpleStringProperty;
  * @author BriMc
  */
 public class ToDoList {
-    private SimpleStringProperty title;
+    private SimpleStringProperty listName;
     private SimpleStringProperty category;
     private ArrayList<Task> tasks;
-    private SimpleObjectProperty<LocalDateTime> deadline;
     private SimpleObjectProperty<LocalDateTime> creationTime;
-
+    private SimpleObjectProperty<LocalDate> deadlineDate;
+    private SimpleObjectProperty<LocalTime> deadlineTime;
     
-    public ToDoList(String title,  String category, LocalDateTime deadline){
-        this.title = new SimpleStringProperty(title);
-        this.deadline = new SimpleObjectProperty(deadline);
+    public ToDoList(String listName,  String category, LocalDate deadlineDate, LocalTime deadlineTime){
+        this.listName = new SimpleStringProperty(listName);
+        this.deadlineDate = new SimpleObjectProperty(deadlineDate);
+        this.deadlineTime = new SimpleObjectProperty(deadlineTime);
         this.category = new SimpleStringProperty(category);
         this.creationTime = new SimpleObjectProperty(LocalDateTime.now().withNano(0).withSecond(0));
     }
     
-    public void setTitle(String title){
-        this.title = new SimpleStringProperty(title);
+    public void setListName(String listName){
+        this.listName = new SimpleStringProperty(listName);
     }
     
-    public String getTitle(){
-        return title.get();
+    public String getListName(){
+        return listName.get();
     }
     
     public void setCategory(String category){
@@ -45,12 +48,20 @@ public class ToDoList {
         return category.get();
     }
     
-    public void setDeadline(LocalDateTime deadline){
-        this.deadline = new SimpleObjectProperty(deadline);
+    public void setDeadlineDate(LocalDate deadlineDate){
+        this.deadlineDate = new SimpleObjectProperty(deadlineDate);
     }
     
-    public LocalDateTime getDeadline(){
-        return deadline.get();
+    public LocalDate getDeadlineDate(){
+        return deadlineDate.get();
+    }
+    
+       public void setDeadlineTime(LocalTime deadlineTime){
+        this.deadlineTime = new SimpleObjectProperty(deadlineTime);
+    }
+    
+    public LocalTime getDeadlineTime(){
+        return deadlineTime.get();
     }
     
     public LocalDateTime getCreationTime(){
