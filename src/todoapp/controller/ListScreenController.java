@@ -80,10 +80,15 @@ public class ListScreenController extends Application {
         
         listTableView.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldVal, newVal) -> {
-                if(newVal != null)
+                if(newVal != null){
                     selectedList = newVal;
-                listDeleteButton.setVisible(true);
-                listOpenButton.setVisible(true);
+                    listDeleteButton.setVisible(true);
+                    listOpenButton.setVisible(true);
+                }else{
+                    selectedList = null;
+                    listDeleteButton.setVisible(false);
+                    listOpenButton.setVisible(false);
+                }
             });
         listColumnDeadline.setCellValueFactory(new PropertyValueFactory<>("Deadline"));
         listColumnListName.setCellValueFactory(new PropertyValueFactory<>("Title"));
@@ -113,7 +118,7 @@ public class ListScreenController extends Application {
     @FXML
     void deleteList(ActionEvent event) {
         event.consume();
-        int n = JOptionPane.showConfirmDialog(null,"Permanently delete list?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        int n = JOptionPane.showConfirmDialog(null,"Permanently delete list?", "Confirmation needed", JOptionPane.YES_NO_OPTION);
         if(n == JOptionPane.YES_OPTION){
             toDoLists.remove(selectedList);
             appState.remove(selectedList);
@@ -122,21 +127,13 @@ public class ListScreenController extends Application {
 
     @FXML
     void openList(ActionEvent event) {
-
+        
     }
     
     private void populateLists(){
          if(!appState.getList().isEmpty()){
              ArrayList<ToDoList> list = appState.getList();
-             for(ToDoList toDoList: list){
-                 if(toDoList.getTitle() == null)
-                     System.out.println("Somebs");
-                 else{
-                     System.out.println(toDoList.getTitle());
-                 }
-                 toDoLists.add(toDoList);
+                 toDoLists.addAll(list);
              }
-            
-         }
     }
 }

@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import todoapp.model.AppState;
+import todoapp.model.Task;
 import todoapp.model.ToDoList;
 
 public class CreateListController extends Application {
@@ -33,7 +34,7 @@ public class CreateListController extends Application {
     private String title;
     private Stage stage;
     private String category;
-    private ArrayList<String> tasks;
+    private ArrayList<Task> tasks;
     private FXMLLoader listLoader;
     private AppState appState;
     private String date;
@@ -127,7 +128,7 @@ public class CreateListController extends Application {
             if(category.isEmpty())
                 category = "General";
             newList = new ToDoList(title, category, deadline);
-            newList.setTasks(new ArrayList<String>());
+            newList.setTasks(new ArrayList<Task>());
             appState.addList(newList);
             
             listLoader = new FXMLLoader();

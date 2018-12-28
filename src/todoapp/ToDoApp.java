@@ -27,6 +27,11 @@ public class ToDoApp extends Application {
         listController.start(stage);
         stage.setScene(new Scene(root));
         stage.setTitle("TO-DO");
+        /*
+        * Need to either setResizable to false in such a way that it
+        doesn't mess up the layout or allow the layout to preserve aspect ratio when 
+        its expanded
+        */
         stage.show();
     }
 

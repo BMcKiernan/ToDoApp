@@ -14,12 +14,12 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <JFXButton fx:id="listNewButton" layoutX="6.0" layoutY="47.0" onAction="#createNewList" style="-fx-background-color: #009688;" text="New List" textFill="#fcfafa" />
-      <JFXButton fx:id="listDeleteButton" layoutX="713.0" layoutY="14.0" onAction="#deleteList" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: #F44336;" text="Delete List" textFill="WHITE" visible="false" />
-      <JFXButton fx:id="listOpenButton" layoutX="713.0" layoutY="47.0" onAction="#openList" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: #484848;" text="Open List" textFill="#fcfcfc" visible="false" />
-      <AnchorPane fx:id="listInnerAnchorpane" layoutX="6.0" layoutY="100.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <JFXButton fx:id="listNewButton" layoutX="5.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#createNewList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #009688;" text="New List" textFill="#fcfafa" AnchorPane.bottomAnchor="480.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="705.0" AnchorPane.topAnchor="40.0" />
+      <JFXButton fx:id="listDeleteButton" layoutX="705.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #F44336;" text="Delete List" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="513.0" AnchorPane.leftAnchor="705.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0" />
+      <JFXButton fx:id="listOpenButton" layoutX="705.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #484848;" text="Open List" textFill="#fcfcfc" visible="false" AnchorPane.bottomAnchor="480.0" AnchorPane.leftAnchor="705.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
+      <AnchorPane fx:id="listInnerAnchorpane" layoutX="6.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
          <children>
-            <TableView fx:id="listTableView" layoutX="20.0" layoutY="28.0" prefHeight="435.0" prefWidth="759.0">
+            <TableView fx:id="listTableView" layoutX="20.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="759.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="25.0">
               <columns>
                 <TableColumn fx:id="listColumnListName" editable="false" prefWidth="233.0" text="List Name" />
                 <TableColumn fx:id="listColumnCategory" editable="false" prefWidth="111.0" text="Category" />

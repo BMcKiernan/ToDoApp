@@ -18,7 +18,7 @@
       </Label>
       <AnchorPane fx:id="createNewInnerAnchorPane" layoutX="1.0" layoutY="75.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <JFXTextField fx:id="createNewListTitle" focusColor="#bbdefb" layoutX="193.0" layoutY="75.0" onAction="#titleEntered" prefHeight="37.0" prefWidth="416.0" promptText="Title" unFocusColor="#2196f3">
+            <JFXTextField fx:id="createNewListTitle" alignment="CENTER" focusColor="#2196f3" layoutX="193.0" layoutY="75.0" onAction="#titleEntered" prefHeight="37.0" prefWidth="416.0" promptText="List Title" style="-fx-prompt-text-fill: #1976d2;" unFocusColor="#1976d2">
                <font>
                   <Font size="16.0" />
                </font>
@@ -33,13 +33,13 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <JFXDatePicker fx:id="createNewListDate" layoutX="203.0" layoutY="296.0" onAction="#deadlineEntered" prefHeight="31.0" prefWidth="215.0" />
+            <JFXDatePicker fx:id="createNewListDate" defaultColor="#1976d2" layoutX="203.0" layoutY="296.0" onAction="#deadlineEntered" prefHeight="31.0" prefWidth="215.0" />
             <Label layoutX="189.0" layoutY="251.0" prefHeight="21.0" prefWidth="124.0" text="Deadline :">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <JFXTimePicker fx:id="createNewListTime" layoutX="486.0" layoutY="299.0" onAction="#timeEntered" />
+            <JFXTimePicker fx:id="createNewListTime" defaultColor="#1976d2" layoutX="486.0" layoutY="299.0" onAction="#timeEntered" />
             <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="135.0" layoutY="303.0" prefHeight="17.0" prefWidth="65.0" text="Date:  ">
                <font>
                   <Font size="14.0" />

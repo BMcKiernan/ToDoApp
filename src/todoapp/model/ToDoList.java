@@ -17,7 +17,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class ToDoList {
     private SimpleStringProperty title;
     private SimpleStringProperty category;
-    private ArrayList<String> tasks;
+    private ArrayList<Task> tasks;
     private SimpleObjectProperty<LocalDateTime> deadline;
     private SimpleObjectProperty<LocalDateTime> creationTime;
 
@@ -57,11 +57,11 @@ public class ToDoList {
         return creationTime.get();
     }
     
-    public void setTasks(ArrayList<String> tasks){
+    public void setTasks(ArrayList<Task> tasks){
         this.tasks = tasks;
     }
     
-    public ArrayList<String> getTasks(){
+    public ArrayList<Task> getTasks(){
         return this.tasks;
     }
 }
