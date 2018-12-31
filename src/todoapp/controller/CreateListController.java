@@ -82,6 +82,7 @@ public class CreateListController {
     }
 
     public void start(Stage stage) {
+        this.stage = stage;
         /*
         * Because JFTextField sucks and its "onAction" only gets the input if 
         * the ENTER key is pressed this listener continuosly updates the String
@@ -97,7 +98,6 @@ public class CreateListController {
                 "Shopping",
                 "General"
         ));
-        this.stage = stage;
         appState = AppState.getInstance(); //maintain lists 
     }
 
@@ -127,8 +127,8 @@ public class CreateListController {
             
             if(category.isEmpty())
                 category = "General";
-            newList = new ToDoList(title, category, datePart, timePart);
-            appState.addList(newList);
+            
+            appState.addList(new ToDoList(title, category, datePart, timePart));
             
             FXMLLoader listLoader = new FXMLLoader();
             listLoader.setLocation(getClass().getResource("/todoapp/view/ListScreen.fxml"));
@@ -195,6 +195,6 @@ public class CreateListController {
 
         } catch (IOException ex) {
             ex.printStackTrace();
-            }
+        }
     }
 }

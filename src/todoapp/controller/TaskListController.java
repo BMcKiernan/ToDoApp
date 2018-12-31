@@ -197,14 +197,14 @@ public class TaskListController {
             description = listTextField.getText();
             Task newTask;
             LocalDate dueDate;
-            if(date.isEmpty()){
+            if(listDatePicker.getEditor().getText().isEmpty()){
                 dueDate = LocalDate.now().plusMonths(6);
             }
             else{
                 dueDate = LocalDate.parse(date);
             }
             newTask = new Task(description, dueDate);
-            appState.addTask(newTask);
+            //appState.addTask(newTask);
             addNewSubTask(newTask);//add child item
             listTextField.clear();
             listDatePicker.getEditor().clear();
@@ -285,9 +285,11 @@ public class TaskListController {
         int row;
         if(taskSM.isEmpty() || treeRootItem.getChildren().isEmpty()){
             selectedItem = treeRootItem;
+            appState.addTask(newTask);
         }else{
             row = taskSM.getSelectedIndex();
             selectedItem = taskSM.getModelItem(row);
+            selectedItem.getValue().addSubTask(newTask);
         }
         selectedItem.getChildren().add(taskItem);
         selectedItem.setExpanded(true);
@@ -295,12 +297,22 @@ public class TaskListController {
     
     private void populateTasks(){
         TreeItem<Task> newItem;
+        TreeItem<Task> newSubItem;
         List<Task> tasks;
+        List<Task> subTasks;
         if(!appState.getTasks().isEmpty()){
             tasks = new ArrayList<Task>();
             tasks.addAll(appState.getTasks());
             for(Task task: tasks){
                 newItem = new TreeItem<>(task);
+                if(!task.getSubTasks().isEmpty()){
+                    subTasks = new ArrayList<Task>();
+                    subTasks = task.getSubTasks();
+                    for(Task sTask: subTasks){
+                        newSubItem = new TreeItem<>(sTask);
+                        newItem.getChildren().add(newSubItem);
+                    }
+                }
                 treeRootItem.getChildren().add(newItem);
             }
         }else{

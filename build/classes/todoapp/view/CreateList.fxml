@@ -16,7 +16,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="createNewInnerAnchorPane" layoutX="1.0" layoutY="75.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="createNewInnerAnchorPane" layoutX="1.0" layoutY="75.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
          <children>
             <JFXTextField fx:id="createNewListTitle" alignment="CENTER" focusColor="#2196f3" layoutX="193.0" layoutY="75.0" onAction="#titleEntered" prefHeight="37.0" prefWidth="416.0" promptText="List Title" style="-fx-prompt-text-fill: #1976d2;" unFocusColor="#1976d2">
                <font>
@@ -54,6 +54,9 @@
             <JFXComboBox fx:id="createNewListCategory" focusColor="#bbdefb" layoutX="304.0" layoutY="173.0" onAction="#categoryEntered" prefHeight="25.0" prefWidth="199.0" unFocusColor="#2196f3" />
          </children>
       </AnchorPane>
-      <JFXButton fx:id="cancelButton" layoutX="5.0" layoutY="40.0" onAction="#cancelPushed" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #ff0000;" text="Cancel" textFill="WHITE" AnchorPane.bottomAnchor="479.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="709.0" AnchorPane.topAnchor="40.0" />
+      <JFXButton fx:id="cancelButton" layoutX="5.0" layoutY="40.0" onAction="#cancelPushed" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #ff0000;" text="Cancel" textFill="WHITE" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font size="15.0" />
+         </font></JFXButton>
    </children>
 </AnchorPane>

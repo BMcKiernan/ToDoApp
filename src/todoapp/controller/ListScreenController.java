@@ -63,14 +63,15 @@ public class ListScreenController {
     
     public void start(Stage stage) {
         this.stage = stage;
-        initialize();
+        //no class constructor so init doesn't automatically get called
+        initialize(); 
     }
     
     
     void initialize(){
         appState = AppState.getInstance(); //add read from filesystem or db
-        appState.setSelectedList(null);
         toDoLists = FXCollections.observableArrayList();
+        System.out.println("lstscreen initialize called\n");
         populateLists();
         //set nested deadline columns date and time and add to Deadline col
         listColumnDeadlineDate = new TableColumn <ToDoList, LocalDate>("Date");
@@ -97,8 +98,6 @@ public class ListScreenController {
                     listOpenButton.setVisible(false);
                 }
             });
-
-       
     }
     
     @FXML
@@ -123,9 +122,11 @@ public class ListScreenController {
         event.consume();
         int n = JOptionPane.showConfirmDialog(null,"Permanently delete list?", "Confirmation needed", JOptionPane.YES_NO_OPTION);
         if(n == JOptionPane.YES_OPTION){
-            toDoLists.remove(selectedList);
+            //calling toDoLists.remove first before appState is a bug
+            //because listener - selectedList change
             appState.removeList(selectedList);
-            appState.setSelectedList(null);
+            toDoLists.remove(selectedList);
+            //System.out.println("AppState size after removal: " +appState.getLists().size());
         }
     }
 
@@ -147,6 +148,7 @@ public class ListScreenController {
     }
     
     private void populateLists(){
+        //System.out.println("populateLists called: appState list size  \n" + appState.getLists().size());
         if(!appState.getLists().isEmpty()){
             toDoLists.addAll(appState.getLists());
         }

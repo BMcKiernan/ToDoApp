@@ -60,7 +60,7 @@ public class AppState {
      * @param toDoList new instance of ToDoList
      */
     public void addList(ToDoList toDoList){
-        toDoLists.add(toDoList);
+        this.toDoLists.add(toDoList);
     }
     
     /**
@@ -69,7 +69,7 @@ public class AppState {
      * @param list ToDoList instance
      */
     public void removeList(ToDoList list){
-        toDoLists.remove(list);
+        this.toDoLists.remove(list);
     }
     
     /**
@@ -77,7 +77,7 @@ public class AppState {
      * @return toDoLists List 
      */
     public List<ToDoList> getLists(){
-        return toDoLists;
+        return this.toDoLists;
     }
     
     /**

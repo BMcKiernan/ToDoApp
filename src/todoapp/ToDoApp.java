@@ -25,8 +25,13 @@ public class ToDoApp extends Application {
         AnchorPane root = (AnchorPane) loader.load();
         ListScreenController listController = loader.getController();
         listController.start(stage);
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.sizeToScene();
         stage.setTitle("TO-DO");
+        
+
         /*
         * Need to either setResizable to false in such a way that it
         doesn't mess up the layout or allow the layout to preserve aspect ratio when 

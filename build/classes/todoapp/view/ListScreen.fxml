@@ -9,14 +9,23 @@
 
 <AnchorPane id="AnchorPane" fx:id="listTopAnchorPane" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #1976d2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.controller.ListScreenController">
    <children>
-      <Label contentDisplay="CENTER" layoutX="350.0" layoutY="18.0" text="To-Do" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="18.0" prefHeight="53.0" prefWidth="114.0" text="To-Do" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="336.0">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <JFXButton fx:id="listNewButton" layoutX="5.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#createNewList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #009688;" text="New List" textFill="#fcfafa" AnchorPane.bottomAnchor="480.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="705.0" AnchorPane.topAnchor="40.0" />
-      <JFXButton fx:id="listDeleteButton" layoutX="705.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #F44336;" text="Delete List" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="513.0" AnchorPane.leftAnchor="705.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0" />
-      <JFXButton fx:id="listOpenButton" layoutX="705.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #484848;" text="Open List" textFill="#fcfcfc" visible="false" AnchorPane.bottomAnchor="480.0" AnchorPane.leftAnchor="705.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
+      <JFXButton fx:id="listNewButton" layoutX="5.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#createNewList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #009688;" text="New List" textFill="WHITE" AnchorPane.leftAnchor="5.0">
+         <font>
+            <Font size="15.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="listDeleteButton" layoutX="705.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #F44336;" text="Delete List" textFill="WHITE" visible="false" AnchorPane.rightAnchor="5.0">
+         <font>
+            <Font size="15.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="listOpenButton" layoutX="705.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #484848;" text="Open List" textFill="WHITE" visible="false" AnchorPane.rightAnchor="5.0">
+         <font>
+            <Font size="15.0" />
+         </font></JFXButton>
       <AnchorPane fx:id="listInnerAnchorpane" layoutX="6.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
          <children>
             <TableView fx:id="listTableView" layoutX="20.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="759.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="25.0">
