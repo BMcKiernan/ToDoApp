@@ -3,18 +3,24 @@ package todoapp.model;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
  * The Task class represents an objective to be completed as part of a ToDoList.
  * A Task contains a String description, LocalDate completionDate or a date to be completed by,
  * and a boolean field called complete which tells if this Task has been completed.
+ * It also contains a list of subTasks which is made up of more tasks. This field
+ * is used for maintaining nested subTasks added in the TreeTableView in the 
+ * TaskListView
  * @author Brian McKiernan
  */
 public class Task extends RecursiveTreeObject<Task> {
-    public SimpleStringProperty description;
-    public SimpleStringProperty completionDate;
-    public boolean complete;
+    private SimpleStringProperty description;
+    private SimpleStringProperty completionDate;
+    private boolean complete;
+    private List<Task> subTasks;
     private final String pattern = "yyyy-MM-dd";
     private static DateTimeFormatter dateFormatter;
     
@@ -23,6 +29,7 @@ public class Task extends RecursiveTreeObject<Task> {
         this.complete = false;
         dateFormatter = DateTimeFormatter.ofPattern(pattern);
         this.completionDate = new SimpleStringProperty(completionDate.format(dateFormatter));
+        subTasks = new ArrayList<Task>();
     }
     
     /**
@@ -55,8 +62,25 @@ public class Task extends RecursiveTreeObject<Task> {
      * String because it is edited in a TreeTableView
      * @param completionDate 
      */
-    public void setCompletionDate(LocalDate completionDate){
-        this.completionDate = new SimpleStringProperty(completionDate.format(dateFormatter));
+    public void setCompletionDate(String completionDate){
+        this.completionDate = new SimpleStringProperty(completionDate);
+    }
+    
+    /**
+     * addSubTask adds a new subTask to this Tasks list of subTasks
+     * @param task 
+     */
+    public void addSubTask(Task subTask){
+        this.subTasks.add(subTask);
+    }
+    
+    /**
+     * getSubTasks returns this Tasks list of Tasks which store nested ToDoList
+     * items
+     * @return subTasks list
+     */
+    public List<Task> getSubTasks(){
+        return subTasks;
     }
     
     /**

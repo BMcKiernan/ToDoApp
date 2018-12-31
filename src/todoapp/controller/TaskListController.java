@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todoapp.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -40,9 +35,8 @@ import todoapp.model.AppState;
 import todoapp.model.Task;
 
 /**
- * FXML Controller class
- *
- * @author BriMc
+ * 
+ * @author Brian McKiernan
  */
 public class TaskListController {
 
@@ -163,13 +157,13 @@ public class TaskListController {
         descColumn.setOnEditCommit((CellEditEvent<Task, String> t) -> t.getTreeTableView()
                                                                         .getTreeItem(t.getTreeTablePosition()
                                                                         .getRow())
-                                                                        .getValue().description.set(t.getNewValue()));
+                                                                        .getValue().setDescription(t.getNewValue()));
         completionDateColumn.setCellFactory((TreeTableColumn<Task, String> param) -> new GenericEditableTreeTableCell<>(
             new TextFieldEditorBuilder()));
         completionDateColumn.setOnEditCommit((CellEditEvent<Task, String> t) -> t.getTreeTableView()
                                                                         .getTreeItem(t.getTreeTablePosition()
                                                                         .getRow())
-                                                                        .getValue().completionDate.set(t.getNewValue()));
+                                                                        .getValue().setCompletionDate(t.getNewValue()));
         
         
         
