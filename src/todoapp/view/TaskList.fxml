@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="listTopAnchorPane" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #1976d2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.controller.TaskListController">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="350.0" layoutY="18.0" text="To-Do" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <VBox fx:id="listVBox" layoutY="103.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
+         <children>
+            <Label fx:id="listLabel" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="List Title" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <TreeTableView fx:id="listTreeTableView" prefHeight="374.0" prefWidth="800.0">
+              <columns>
+                <TreeTableColumn fx:id="isCompleteColumn" prefWidth="82.0" text="Complete" />
+                <TreeTableColumn fx:id="descColumn" prefWidth="588.0" text="Description" />
+                  <TreeTableColumn fx:id="completionDateColumn" minWidth="0.0" prefWidth="127.0" text="Finish By" />
+              </columns>
+            </TreeTableView>
+            <HBox prefHeight="45.0" prefWidth="800.0">
+               <children>
+                  <JFXButton fx:id="listAddButton" onAction="#createTask" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #009688;" text="Add Item" textFill="WHITE" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets bottom="7.5" left="10.0" top="7.5" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXTextField fx:id="listTextField" alignment="CENTER" focusColor="#2196f3" onAction="#descriptionEntered" prefHeight="30.0" prefWidth="448.0" promptText="Enter Description Here" style="-fx-prompt-text-fill: #1976d2;" unFocusColor="#1976d2">
+                     <HBox.margin>
+                        <Insets bottom="7.5" left="20.0" top="7.5" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <Separator orientation="VERTICAL" prefHeight="47.0" prefWidth="0.0" translateX="10.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Separator>
+                  <JFXDatePicker fx:id="listDatePicker" defaultColor="#1976d2" minHeight="30.0" onAction="#datePicked">
+                     <HBox.margin>
+                        <Insets bottom="7.5" left="20.0" top="7.5" />
+                     </HBox.margin>
+                  </JFXDatePicker>
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="17.0" prefWidth="800.0" text="Label" textFill="RED" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <JFXButton fx:id="listDeleteButton" layoutX="694.0" layoutY="40.0" onAction="#deleteTask" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: #F44336;" text="Delete Item" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="480.0" AnchorPane.leftAnchor="694.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
+      <JFXButton fx:id="listReturnButton" layoutX="5.0" layoutY="40.0" onAction="#returnPressed" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #009688;" text="Return" textFill="WHITE" />
+   </children>
+</AnchorPane>

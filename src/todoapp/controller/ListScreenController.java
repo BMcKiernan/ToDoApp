@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todoapp.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -10,8 +5,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,9 +20,8 @@ import javax.swing.JOptionPane;
 import todoapp.model.AppState;
 import todoapp.model.ToDoList;
 
-public class ListScreenController extends Application {
+public class ListScreenController {
 
-    private FXMLLoader listLoader;
     private Stage stage;
     private AppState appState;
     private ObservableList<ToDoList> toDoLists;
@@ -68,16 +60,16 @@ public class ListScreenController extends Application {
     private TableColumn<ToDoList, LocalDate> listColumnDeadlineDate;
     private TableColumn<ToDoList, LocalTime> listColumnDeadlineTime;
 
-    @Override
+    
     public void start(Stage stage) {
         this.stage = stage;
         initialize();
-
     }
     
     
     void initialize(){
         appState = AppState.getInstance(); //add read from filesystem or db
+        appState.setSelectedList(null);
         toDoLists = FXCollections.observableArrayList();
         populateLists();
         //set nested deadline columns date and time and add to Deadline col
@@ -95,10 +87,12 @@ public class ListScreenController extends Application {
             (obs, oldVal, newVal) -> {
                 if(newVal != null){
                     selectedList = newVal;
+                    appState.setSelectedList(selectedList);
                     listDeleteButton.setVisible(true);
                     listOpenButton.setVisible(true);
                 }else{
                     selectedList = null;
+                    appState.setSelectedList(null);
                     listDeleteButton.setVisible(false);
                     listOpenButton.setVisible(false);
                 }
@@ -110,7 +104,7 @@ public class ListScreenController extends Application {
     @FXML
     void createNewList(ActionEvent event) {
         event.consume();
-        listLoader = new FXMLLoader();
+        FXMLLoader listLoader = new FXMLLoader();
         listLoader.setLocation(getClass().getResource("/todoapp/view/CreateList.fxml"));
         try {
             AnchorPane root = (AnchorPane) listLoader.load();
@@ -131,18 +125,30 @@ public class ListScreenController extends Application {
         if(n == JOptionPane.YES_OPTION){
             toDoLists.remove(selectedList);
             appState.removeList(selectedList);
+            appState.setSelectedList(null);
         }
     }
 
     @FXML
     void openList(ActionEvent event) {
-        
+        event.consume();
+        FXMLLoader taskLoader = new FXMLLoader();
+        taskLoader.setLocation(getClass().getResource("/todoapp/view/TaskList.fxml"));
+        try{
+            AnchorPane root = (AnchorPane) taskLoader.load();
+            TaskListController taskListScreen = taskLoader.getController();
+            stage.close();
+            taskListScreen.start(stage);
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
     }
     
     private void populateLists(){
-         if(!appState.getList().isEmpty()){
-             ArrayList<ToDoList> list = appState.getList();
-                 toDoLists.addAll(list);
-             }
+        if(!appState.getLists().isEmpty()){
+            toDoLists.addAll(appState.getLists());
+        }
     }
 }

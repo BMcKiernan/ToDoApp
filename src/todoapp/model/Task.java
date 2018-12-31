@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todoapp.model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -11,8 +6,10 @@ import java.time.format.DateTimeFormatter;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- *
- * @author BriMc
+ * The Task class represents an objective to be completed as part of a ToDoList.
+ * A Task contains a String description, LocalDate completionDate or a date to be completed by,
+ * and a boolean field called complete which tells if this Task has been completed.
+ * @author Brian McKiernan
  */
 public class Task extends RecursiveTreeObject<Task> {
     public SimpleStringProperty description;
@@ -28,28 +25,53 @@ public class Task extends RecursiveTreeObject<Task> {
         this.completionDate = new SimpleStringProperty(completionDate.format(dateFormatter));
     }
     
-    //Don't need this methods because access modifier must be public for 
-    //JFoenix JFXTreeTableColumn cell factories
+    /**
+     * getDescription returns the String description field
+     * @return description
+     */
     public String getDescription(){
         return description.get();
     }
     
+    /**
+     * setDescription sets this Tasks description to the new value.
+     * @param description new value to be set
+     */
     public void setDescription(String description){
         this.description = new SimpleStringProperty(description);
     }
     
+    /**
+     * getCompletionDate gets the date when the task should be completed by as a
+     * String so it can be edited in a TreeTableView
+     * @return completionDate String
+     */
     public String getCompletionDate(){
         return completionDate.get();
     }
     
+    /**
+     * setCompletionDate sets the date when the task should be completed by as a
+     * String because it is edited in a TreeTableView
+     * @param completionDate 
+     */
     public void setCompletionDate(LocalDate completionDate){
         this.completionDate = new SimpleStringProperty(completionDate.format(dateFormatter));
     }
     
+    /**
+     * isComplete returns the boolean complete which will be true or false depending
+     * on whether it has been checked off in the TreeTableView
+     * @return complete
+     */
     public boolean isComplete(){
         return complete;
     }
     
+    /**
+     * setComplete sets the Tasks complete field to a new boolean value.
+     * @param complete boolean to be set
+     */
     public void setComplete(boolean complete){
         this.complete = complete;
     }

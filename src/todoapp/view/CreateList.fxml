@@ -54,5 +54,6 @@
             <JFXComboBox fx:id="createNewListCategory" focusColor="#bbdefb" layoutX="304.0" layoutY="173.0" onAction="#categoryEntered" prefHeight="25.0" prefWidth="199.0" unFocusColor="#2196f3" />
          </children>
       </AnchorPane>
+      <JFXButton fx:id="cancelButton" layoutX="5.0" layoutY="40.0" onAction="#cancelPushed" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #ff0000;" text="Cancel" textFill="WHITE" AnchorPane.bottomAnchor="479.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="709.0" AnchorPane.topAnchor="40.0" />
    </children>
 </AnchorPane>
