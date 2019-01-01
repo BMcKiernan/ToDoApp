@@ -22,7 +22,7 @@
       </Label>
       <VBox fx:id="listVBox" layoutY="103.0" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
          <children>
-            <Label fx:id="listLabel" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="List Title" textAlignment="CENTER">
+            <Label fx:id="listLabel" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="List Title" textAlignment="CENTER" textFill="#009688">
                <font>
                   <Font size="18.0" />
                </font>
