@@ -1,12 +1,11 @@
 package todoapp.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 /**
  * A ToDoList has several properties such as a listName, category, creationTime,
@@ -14,13 +13,13 @@ import javafx.beans.property.SimpleStringProperty;
  * list of tasks which represent the ToDoList items to be completed.
  * @author Brian McKiernan
  */
-public class ToDoList {
+public class ToDoList implements Serializable {
     private String listName;
     private String category;
     private List<Task> tasks;
-    private SimpleObjectProperty<LocalDateTime> creationTime;
-    private SimpleObjectProperty<LocalDate> deadlineDate;
-    private SimpleObjectProperty<LocalTime> deadlineTime;
+    private LocalDateTime creationTime;
+    private LocalDate deadlineDate;
+    private LocalTime deadlineTime;
     
     /**
      * The ToDoList constructor initializes a new instance of a ToDolist. The 
@@ -35,10 +34,10 @@ public class ToDoList {
      */
     public ToDoList(String listName, String category, LocalDate deadlineDate, LocalTime deadlineTime){
         this.listName = listName;
-        this.deadlineDate = new SimpleObjectProperty(deadlineDate);
-        this.deadlineTime = new SimpleObjectProperty(deadlineTime);
+        this.deadlineDate = deadlineDate;
+        this.deadlineTime = deadlineTime;
         this.category = category;
-        this.creationTime = new SimpleObjectProperty(LocalDateTime.now().withNano(0).withSecond(0));
+        this.creationTime = LocalDateTime.now().withNano(0).withSecond(0);
         this.tasks = new ArrayList<>();
     }
     
@@ -53,7 +52,7 @@ public class ToDoList {
     
     /**
      * getListName returns the ToDoList objects listName
-     * @return 
+     * @return listName
      */
     public String getListName(){
         return listName;
@@ -69,7 +68,7 @@ public class ToDoList {
     }
     
     /**
-     * getCategory returns the ToDoLists category type
+     * getCategory returns the ToDoLists category type.
      * @return category type
      */
     public String getCategory(){
@@ -82,45 +81,45 @@ public class ToDoList {
      * @param deadlineDate new LocalDate value
      */
     public void setDeadlineDate(LocalDate deadlineDate){
-        this.deadlineDate = new SimpleObjectProperty(deadlineDate);
+        this.deadlineDate = deadlineDate;
     }
     
     /**
-     * getDeadLineDate returns a ToDoLists deadline LocalDate
+     * getDeadLineDate returns a ToDoLists deadline LocalDate field.
      * @return deadlineDate 
      */
     public LocalDate getDeadlineDate(){
-        return deadlineDate.get();
+        return deadlineDate;
     }
     
     /**
      * setDeadLineTime method provides a way for the LocalTime part of a ToDoLists
      * deadline to be changed after creation time.
-     * @param deadlineDate new LocalTime value
+     * @param deadlineTime new LocalTime value
      */
     public void setDeadlineTime(LocalTime deadlineTime){
-        this.deadlineTime = new SimpleObjectProperty(deadlineTime);
+        this.deadlineTime = deadlineTime;
     }
     
     /**
-     * getDeadLineTime returns a ToDoLists deadline LocalTime
+     * getDeadLineTime returns a ToDoLists deadline LocalTime.
      * @return deadlineTime
      */
     public LocalTime getDeadlineTime(){
-        return deadlineTime.get();
+        return deadlineTime;
     }
     
     /**
      * getCreationTime method returns the LocalDateTime at which the the ToDoList
-     * was created
+     * was created.
      * @return creationTime
      */
     public LocalDateTime getCreationTime(){
-        return creationTime.get();
+        return creationTime;
     }
     
     /**
-     * getTasks returns the ToDoList objects associate Task List.
+     * getTasks returns the ToDoList objects associated Task List.
      * @return tasks
      */
     public List<Task> getTasks(){
@@ -128,7 +127,7 @@ public class ToDoList {
     }
     
     /**
-     * addTask adds a new Task object to the ToDoLists associated Task List
+     * addTask adds a new Task object to the ToDoLists associated Task List.
      * @param task to be added
      */
     public void addTask(Task task){
@@ -137,7 +136,7 @@ public class ToDoList {
     
     /**
      * removeTask removes a specific Task object from the ToDoLists associated
-     * Task list
+     * Task list.
      * @param task to be removed
      */
     public void removeTask(Task task){

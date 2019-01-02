@@ -11,6 +11,13 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/model/ToDoList.java</file>
+            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/controller/TaskListController.java</file>
+            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/ToDoApp.java</file>
+            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/ProcessState.java</file>
+            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/model/AppState.java</file>
+            <file>file:/C:/Users/BriMc/Documents/NetBeansProjects/ToDoApp/src/todoapp/model/Task.java</file>
+        </group>
     </open-files>
 </project-private>

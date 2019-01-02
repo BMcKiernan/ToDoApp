@@ -1,11 +1,11 @@
 package todoapp.model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.property.SimpleStringProperty;
 
 /**
  * The Task class represents an objective to be completed as part of a ToDoList.
@@ -13,23 +13,29 @@ import javafx.beans.property.SimpleStringProperty;
  * and a boolean field called complete which tells if this Task has been completed.
  * It also contains a list of subTasks which is made up of more tasks. This field
  * is used for maintaining nested subTasks added in the TreeTableView in the 
- * TaskListView
+ * TaskListView.
  * @author Brian McKiernan
  */
-public class Task extends RecursiveTreeObject<Task> {
-    private SimpleStringProperty description;
-    private SimpleStringProperty completionDate;
+public class Task extends RecursiveTreeObject<Task> implements Serializable {
+    private String description;
+    private String completionDate;
     private boolean complete;
-    private List<Task> subTasks;
     private final String pattern = "yyyy-MM-dd";
     private static DateTimeFormatter dateFormatter;
+    private List<Task> subTasks;
     
+    /**
+     * Task() constructor only accepts description and completionDate.
+     * complete is set to false by default.
+     * @param description the task description
+     * @param completionDate the date when the task must be completed by
+     */
     public Task(String description, LocalDate completionDate){
-        this.description = new SimpleStringProperty(description);
-        this.complete = false;
         dateFormatter = DateTimeFormatter.ofPattern(pattern);
-        this.completionDate = new SimpleStringProperty(completionDate.format(dateFormatter));
-        subTasks = new ArrayList<Task>();
+        this.description = description;
+        this.complete = false;
+        this.completionDate = completionDate.format(dateFormatter);
+        this.subTasks = new ArrayList<Task>();
     }
     
     /**
@@ -37,7 +43,7 @@ public class Task extends RecursiveTreeObject<Task> {
      * @return description
      */
     public String getDescription(){
-        return description.get();
+        return description;
     }
     
     /**
@@ -45,29 +51,29 @@ public class Task extends RecursiveTreeObject<Task> {
      * @param description new value to be set
      */
     public void setDescription(String description){
-        this.description = new SimpleStringProperty(description);
+        this.description = description;
     }
     
     /**
      * getCompletionDate gets the date when the task should be completed by as a
-     * String so it can be edited in a TreeTableView
+     * String so it can be edited in a TreeTableView.
      * @return completionDate String
      */
     public String getCompletionDate(){
-        return completionDate.get();
+        return completionDate;
     }
     
     /**
      * setCompletionDate sets the date when the task should be completed by as a
-     * String because it is edited in a TreeTableView
+     * String because it is edited in a TreeTableView.
      * @param completionDate 
      */
     public void setCompletionDate(String completionDate){
-        this.completionDate = new SimpleStringProperty(completionDate);
+        this.completionDate = completionDate;
     }
     
     /**
-     * addSubTask adds a new subTask to this Tasks list of subTasks
+     * addSubTask adds a new subTask to this Tasks list of subTasks.
      * @param task 
      */
     public void addSubTask(Task subTask){
@@ -75,8 +81,7 @@ public class Task extends RecursiveTreeObject<Task> {
     }
     
     /**
-     * getSubTasks returns this Tasks list of Tasks which store nested ToDoList
-     * items
+     * getSubTasks returns this Tasks list of Tasks.
      * @return subTasks list
      */
     public List<Task> getSubTasks(){
@@ -85,7 +90,7 @@ public class Task extends RecursiveTreeObject<Task> {
     
     /**
      * isComplete returns the boolean complete which will be true or false depending
-     * on whether it has been checked off in the TreeTableView
+     * on whether it has been checked off in the TreeTableView.
      * @return complete
      */
     public boolean isComplete(){

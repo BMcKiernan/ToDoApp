@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todoapp.model;
 
 import java.util.ArrayList;
@@ -13,8 +8,8 @@ import java.util.List;
  * @author Brian McKiernan
  * The AppState class maintains the state of the ToDoLists,
  * and the Tasks of the selected ToDoList field selectedList.
- * This creates a separation between the management of the controllers and
- * the objects and their respective state. AppState is a singleton
+ * This creates a separation between the management of the controllers,
+ * the objects, and their respective state. AppState is a singleton
  * class and as such there is only one instance of the ToDoList app
  * state at any time.
  */
@@ -36,8 +31,8 @@ public class AppState {
     }
     
     /**
-     * getInstance returns the appState instance maintained by
-     * the static method appStateHolder.
+     * getInstance returns the appState from the private static appStateHodler
+     * class.
      * @return appStateHolder.INSTANCE either a new AppState if this is the
      * first time getInstance() is called or the instance instantiated at some
      * point earlier during run time.
@@ -97,7 +92,7 @@ public class AppState {
     }
     
     /**
-     * getTasks returns complete List of Task objects
+     * getTasks returns the selectedLists complete List of Task objects.
      * @return 
      */
     public List<Task> getTasks(){
@@ -105,8 +100,7 @@ public class AppState {
     }
     
     /**
-     * setSelectedList sets the current ToDoList which will be operated on 
-     * in TaskList
+     * setSelectedList sets the current ToDoList.
      * @param selectedList selected ToDoList
      */
     public void setSelectedList(ToDoList selectedList){
@@ -114,10 +108,19 @@ public class AppState {
     }
     
     /**
-     * getSelectedList returns the selected ToDoList for TaskList
+     * getSelectedList returns the selected ToDoList.
      * @return  selectedToDoList
      */
     public ToDoList getSelectedList(){
         return selectedList;
+    }
+    
+    /**
+     * The setLists method is solely for setting up the singleton appState
+     * when data has been deserialized from the filesystem.
+     * @param list ToDoLists 
+     */
+    public void setLists(List<ToDoList> list){
+        this.toDoLists = list;
     }
 }

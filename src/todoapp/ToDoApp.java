@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todoapp;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,13 +11,16 @@ import javafx.stage.Stage;
 import todoapp.controller.ListScreenController;
 
 /**
- *
- * @author BriMc
+ * 
+ * @author Brian McKiernan
  */
 public class ToDoApp extends Application {
     
+
     @Override
     public void start(Stage stage) throws Exception {
+        ProcessState ps = new ProcessState();
+        ps.deserialize();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/todoapp/view/ListScreen.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
@@ -30,14 +31,14 @@ public class ToDoApp extends Application {
         stage.setResizable(false);
         stage.sizeToScene();
         stage.setTitle("TO-DO");
-        
-
-        /*
-        * Need to either setResizable to false in such a way that it
-        doesn't mess up the layout or allow the layout to preserve aspect ratio when 
-        its expanded
-        */
         stage.show();
+        stage.setOnCloseRequest(event -> {
+            try {
+                ps.serialize();
+            } catch (IOException ex) {
+                Logger.getLogger(ToDoApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     /**

@@ -295,28 +295,22 @@ public class TaskListController {
         selectedItem.setExpanded(true);
     }
     
+    
+    private static TreeItem<Task> getRecursiveChildren(Task task){
+        TreeItem<Task> thisItem = new TreeItem<>(task);
+        if(!task.getSubTasks().isEmpty()){
+            task.getSubTasks().forEach((subTask) -> {
+                thisItem.getChildren().add(getRecursiveChildren(subTask));
+            });
+        }
+        return thisItem;
+    }
+    
     private void populateTasks(){
-        TreeItem<Task> newItem;
-        TreeItem<Task> newSubItem;
-        List<Task> tasks;
-        List<Task> subTasks;
         if(!appState.getTasks().isEmpty()){
-            tasks = new ArrayList<Task>();
-            tasks.addAll(appState.getTasks());
-            for(Task task: tasks){
-                newItem = new TreeItem<>(task);
-                if(!task.getSubTasks().isEmpty()){
-                    subTasks = new ArrayList<Task>();
-                    subTasks = task.getSubTasks();
-                    for(Task sTask: subTasks){
-                        newSubItem = new TreeItem<>(sTask);
-                        newItem.getChildren().add(newSubItem);
-                    }
-                }
-                treeRootItem.getChildren().add(newItem);
-            }
-        }else{
-            System.out.println("appState.getTasks is empty");
+            appState.getTasks().forEach((task) -> {
+                treeRootItem.getChildren().add(getRecursiveChildren(task));
+            });
         }
     }
 }
