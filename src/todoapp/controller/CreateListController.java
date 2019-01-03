@@ -150,6 +150,7 @@ public class CreateListController {
                 stage.close();
                 listScreenController.start(stage);
                 stage.setScene(new Scene(root));
+                stage.setResizable(true);
                 stage.show();
 
             } catch (IOException ex) {
@@ -229,7 +230,7 @@ public class CreateListController {
     }
     
     /**
-     * cancelPushed() is an FXML onAction method associated with the return 
+     * cancelPushed() is an FXML onAction method associated with the cancel
      * button in the CreateList screen. This method allows the user to return to
      * the ListScreen in the event that they no longer wish to create a new list.
      * @param event 
@@ -244,6 +245,7 @@ public class CreateListController {
             stage.close();
             listScreenController.start(stage);
             stage.setScene(new Scene(root));
+            stage.setResizable(true);
             stage.show();
 
         } catch (IOException ex) {

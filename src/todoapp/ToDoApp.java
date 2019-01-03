@@ -28,8 +28,8 @@ public class ToDoApp extends Application {
         listController.start(stage);
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setResizable(false);
-        stage.sizeToScene();
+//        stage.setResizable(false);
+//        stage.sizeToScene();
         stage.setTitle("TO-DO");
         stage.show();
         stage.setOnCloseRequest(event -> {

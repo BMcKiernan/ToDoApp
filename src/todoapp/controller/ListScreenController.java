@@ -77,7 +77,7 @@ public class ListScreenController {
     void initialize(){
         appState = AppState.getInstance(); //add read from filesystem or db
         toDoLists = FXCollections.observableArrayList();
-        System.out.println("lstscreen initialize called\n");
+        //System.out.println("lstscreen initialize called\n");
         populateLists();
         //set nested deadline columns date and time and add to Deadline col
         listColumnDeadlineDate = new TableColumn <ToDoList, LocalDate>("Date");
@@ -125,7 +125,11 @@ public class ListScreenController {
             CreateListController createListScreen = listLoader.getController();
             stage.close();
             createListScreen.start(stage);
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.sizeToScene();
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -179,6 +183,7 @@ public class ListScreenController {
             stage.close();
             taskListScreen.start(stage);
             stage.setScene(new Scene(root));
+            stage.setResizable(true);
             stage.show();
         }catch(IOException ex){
             ex.printStackTrace();

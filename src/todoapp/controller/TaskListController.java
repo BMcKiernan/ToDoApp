@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +16,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellEditEvent;
 import javafx.scene.control.TreeTableView;
@@ -27,7 +25,6 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import todoapp.model.AppState;
 import todoapp.model.Task;
 
@@ -35,6 +32,12 @@ import todoapp.model.Task;
  * 
  * @author Brian McKiernan
  */
+
+enum err{
+    VALIDDATE, NOTPAST, NOTAFTERROOT;
+}
+
+
 public class TaskListController {
     
     private Stage stage;
@@ -111,61 +114,59 @@ public class TaskListController {
         listTreeTableView.setRoot(treeRootItem);  
         listTreeTableView.setShowRoot(false);
         listTreeTableView.setEditable(true);
-        listLabel.setText(appState.getSelectedList().getListName());
+        listLabel.setText("Viewing: " + appState.getSelectedList().getListName());
         populateTasks(); //gets tasks - creates treeItems - adds to rootItem
         
         //CellValueFactories----------------------------------------------------
-        descColumn.setCellValueFactory(new TreeItemPropertyValueFactory<Task, String>("description"));
-        completionDateColumn.setCellValueFactory(new TreeItemPropertyValueFactory<Task, String>("completionDate"));
-        isCompleteColumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, Boolean>,
-            ObservableValue<Boolean>>(){
-            @Override
-            public ObservableValue<Boolean> call(TreeTableColumn.CellDataFeatures<Task, Boolean> param){
-                TreeItem<Task> treeItem = param.getValue();
-                Task task = treeItem.getValue();
-                SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(task.isComplete());
-                //singleCol.setOnEditCommit() doesn't work CheckBoxTreeTableCell
-                //CheckBox is live, check boolean value if needed
-                booleanProp.addListener((obs, oldVal, newVal) -> {
-                    task.setComplete(newVal);
-                });
-                return booleanProp;
-            }
+        descColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("description"));
+        completionDateColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("completionDate"));
+        isCompleteColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<Task, Boolean> param) -> {
+            TreeItem<Task> treeItem = param.getValue();
+            Task task = treeItem.getValue();
+            SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(task.isComplete());
+            //singleCol.setOnEditCommit() doesn't work CheckBoxTreeTableCell
+            //CheckBox is live, check boolean value if needed
+            booleanProp.addListener((obs, oldVal, newVal) -> {
+                task.setComplete(newVal);
+            });
+            return booleanProp;
         });
         //End CVFs--------------------------------------------------------------
   
         //CellFactories---------------------------------------------------------
-        isCompleteColumn.setCellFactory(new Callback<TreeTableColumn<Task, Boolean>, TreeTableCell<Task, Boolean>>(){
-            @Override
-            public TreeTableCell<Task, Boolean> call(TreeTableColumn<Task,Boolean> p){
-                CheckBoxTreeTableCell<Task, Boolean> cell = new CheckBoxTreeTableCell<Task, Boolean>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
+        isCompleteColumn.setCellFactory((TreeTableColumn<Task,Boolean> p) -> {
+            CheckBoxTreeTableCell<Task, Boolean> cell = new CheckBoxTreeTableCell<>();
+            cell.setAlignment(Pos.CENTER);
+            return cell;
+        });
+        descColumn.setCellFactory((TreeTableColumn<Task, String> param)
+                -> new GenericEditableTreeTableCell<>(new TextFieldEditorBuilder()));
+        descColumn.setOnEditCommit((CellEditEvent<Task, String> t) -> 
+                t.getTreeTableView().getTreeItem(t.getTreeTablePosition()
+                        .getRow()).getValue().setDescription(t.getNewValue()));
+        completionDateColumn.setCellFactory((TreeTableColumn<Task, String> param)
+                -> new GenericEditableTreeTableCell<>(new TextFieldEditorBuilder()));
+        completionDateColumn.setOnEditCommit((CellEditEvent<Task, String> t) -> {
+            String oldValue = t.getOldValue(); String newValue = t.getNewValue();
+            if(validateDateCell(t.getNewValue())){
+                t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow())
+                .getValue().setCompletionDate(newValue);
+            }else{
+                t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow())
+                .getValue().setCompletionDate(oldValue);
             }
         });
-        descColumn.setCellFactory((TreeTableColumn<Task, String> param) -> new GenericEditableTreeTableCell<>(
-            new TextFieldEditorBuilder()));
-        descColumn.setOnEditCommit((CellEditEvent<Task, String> t) -> t.getTreeTableView()
-                                                                        .getTreeItem(t.getTreeTablePosition()
-                                                                        .getRow())
-                                                                        .getValue().setDescription(t.getNewValue()));
-        completionDateColumn.setCellFactory((TreeTableColumn<Task, String> param) -> new GenericEditableTreeTableCell<>(
-            new TextFieldEditorBuilder()));
-        completionDateColumn.setOnEditCommit((CellEditEvent<Task, String> t) -> t.getTreeTableView()
-                                                                        .getTreeItem(t.getTreeTablePosition()
-                                                                        .getRow())
-                                                                        .getValue().setCompletionDate(t.getNewValue()));
         //End CFs---------------------------------------------------------------
         
         //listener detects when a Task has been selected - buttons appear
         listTreeTableView.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldVal, newVal) -> {
-                System.out.println(oldVal +" -> " + newVal);
+                //System.out.println(oldVal +" -> " + newVal);
                 if(newVal != null){
                     selectedTask = newVal;
                     if(selectedTask != treeRootItem){
                         listDeleteButton.setVisible(true);
-                        System.out.println("selectedTask: " + selectedTask + " treeRootItem: " + treeRootItem);
+                        //System.out.println("selectedTask: " + selectedTask + " treeRootItem: " + treeRootItem);
                     }
                 }else{
                     selectedTask = null;
@@ -356,4 +357,50 @@ public class TaskListController {
             });
         }
     }
-}
+    
+    
+    boolean validateDateCell(String subString){
+        errorLabel.setVisible(false);
+        LocalDate parentDate;
+        LocalDate present = LocalDate.now();
+        parentDate = LocalDate.parse(selectedTask.getParent().getValue().getCompletionDate());
+        if(!validDate(subString) || subString.isEmpty()){
+            errorLabel.setText("Date must be in proper yyyy-MM-dd format");
+            errorLabel.setVisible(true);
+            return false;
+        }
+        if(!parentDate.isAfter(LocalDate.parse(subString)) || (
+                !parentDate.isEqual(LocalDate.parse(subString)))){
+            errorLabel.setText("Sub task completion date must be before"
+                    + " or equal to parent task's completion date");
+            errorLabel.setVisible(true);
+            return false;
+        }
+        if(!present.isBefore(LocalDate.parse(subString)) || (
+                !present.isEqual(LocalDate.parse(subString)))){
+            errorLabel.setText("The completion date cannot be in the past");
+            errorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+    
+    boolean validDate(String dateStr){   
+        if(dateStr.length() != 10){
+            return false;
+        }else{
+            for(int i = 0; i < dateStr.length(); i++){
+                if(i != 4 && i != 7){
+                    if(!Character.isDigit(dateStr.charAt(i)))
+                        return false;
+                }
+                if(i == 4 || i == 7){
+                    if(dateStr.charAt(i) != '-')
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+} 
+
