@@ -26,7 +26,7 @@ public class ToDoList implements Serializable {
      * listName, category, deadlineDate, and deadlineTime are passed to the 
      * ToDoList constructor at creation time while the actual creationTime field
      * and the ArrayList of Tasks are automatically initialized to the current
-     * LocalDateTime and an empty ArrayList<Task> respectively.
+     * LocalDateTime and an empty ArrayList respectively.
      * @param listName
      * @param category
      * @param deadlineDate

@@ -26,6 +26,11 @@
          <font>
             <Font size="15.0" />
          </font></JFXButton>
+      <JFXButton fx:id="listEditButton" layoutX="608.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editSelectedList" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #009688;" text="Edit List" textFill="WHITE" visible="false" AnchorPane.rightAnchor="100.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
       <AnchorPane fx:id="listInnerAnchorpane" layoutX="6.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
          <children>
             <TableView fx:id="listTableView" layoutX="20.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="759.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="25.0">

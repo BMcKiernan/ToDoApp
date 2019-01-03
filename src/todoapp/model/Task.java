@@ -74,7 +74,7 @@ public class Task extends RecursiveTreeObject<Task> implements Serializable {
     
     /**
      * addSubTask adds a new subTask to this Tasks list of subTasks.
-     * @param task 
+     * @param subTask 
      */
     public void addSubTask(Task subTask){
         this.subTasks.add(subTask);

@@ -37,6 +37,9 @@ public class ListScreenController {
     private JFXButton listDeleteButton;
 
     @FXML
+    private JFXButton listEditButton;
+        
+    @FXML
     private JFXButton listOpenButton;
 
     @FXML
@@ -94,11 +97,13 @@ public class ListScreenController {
                     selectedList = newVal;
                     appState.setSelectedList(selectedList);
                     listDeleteButton.setVisible(true);
+                    listEditButton.setVisible(true);
                     listOpenButton.setVisible(true);
                 }else{
                     selectedList = null;
                     appState.setSelectedList(null);
                     listDeleteButton.setVisible(false);
+                    listEditButton.setVisible(false);
                     listOpenButton.setVisible(false);
                 }
             });
@@ -125,6 +130,13 @@ public class ListScreenController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+    
+    
+    @FXML
+    void editSelectedList(ActionEvent event) {
+        appState.setEditPressed(true);
+        createNewList(event);
     }
     
     /**

@@ -17,17 +17,19 @@ public class AppState {
 
     private List<ToDoList> toDoLists;
     private ToDoList selectedList;
+    private boolean editPressed;
     
     /**
      * The AppState Constructor is private so instances of the
      * AppState Class cannot be created using the new keyword.
      * When the singleton AppState object is created the toDoLists field
      * is instantiated with an ArrayList of ToDoLists and selectedList is
-     * set to null.
+     * set to null. EditPressed is a boolean value by default set to false.
      */
     private AppState() {
         toDoLists = new ArrayList<>();
         selectedList = null;
+        editPressed = false;
     }
     
     /**
@@ -122,5 +124,24 @@ public class AppState {
      */
     public void setLists(List<ToDoList> list){
         this.toDoLists = list;
+    }
+    
+    /**
+     * setEditPressed() sets the boolean editPressed to whatever boolean value is 
+     * passed to it.
+     * @param editPressed boolean
+     */
+    public void setEditPressed(boolean editPressed){
+        this.editPressed = editPressed;
+    }
+    
+    /**
+     * editPressed() returns true or false to indicate whether the
+     * CreateListController was created because the "Edit List" button was
+     * clicked.
+     * @return 
+     */
+    public boolean editPressed(){
+        return this.editPressed;
     }
 }

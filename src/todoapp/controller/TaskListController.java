@@ -300,7 +300,7 @@ public class TaskListController {
      * addNewSubTask() adds newly created Tasks to the TreeTableView and also
      * adds them to the corresponding level of nested subTasks in AppState.
      * @param newTask to be added to appState, converted into TreeItem and added
-     * to able
+     * to TreeTableView
      */
     private void addNewSubTask(Task newTask){
         errorLabel.setVisible(false);
@@ -324,14 +324,14 @@ public class TaskListController {
     
     /**
      * getRecursiveChildren converts every Task passed to it into a 
-     * TreeItem<Task>. The base case is tasks.getSubTasks().isEmpty() in which 
+     * TreeItem. The base case is tasks.getSubTasks().isEmpty() in which 
      * case the sole Task is turned into a TreeItem and returned from the method.
-     * Otherwise each Tasks ArrayList<Task> of "subTasks" is iterated
+     * Otherwise each Tasks ArrayList of "subTasks" is iterated
      * over and getRecursiveChildren is called on them so that each
      * nested subTask and its subsequent nested subTasks will be added to its 
-     * parent TreeItem<Task> from the call prior to it.
+     * parent TreeItem from the call prior to it.
      * @param task the Task to be turned into a TreeItem with its children added
-     * @return TreeItem<Task>
+     * @return TreeItem
      */
     private static TreeItem<Task> getRecursiveChildren(Task task){
         TreeItem<Task> thisItem = new TreeItem<>(task);
@@ -345,7 +345,7 @@ public class TaskListController {
     
     /**
      * populateTasks() adds all of the appState's selectedList's ArrayList of 
-     * Tasks to the TreeTableView. For each task in appState's ArrayList<Task>
+     * Tasks to the TreeTableView. For each task in appState's ArrayList
      * the Task is turned into a TreeItem inside of getRecursiveChildren() and
      * is added to the treeRootItem when it returns.
      */

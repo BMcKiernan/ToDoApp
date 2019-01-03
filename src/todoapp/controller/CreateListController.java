@@ -27,11 +27,8 @@ public class CreateListController {
     private String date;
     private String time;
     private Stage stage;
- 
     private AppState appState;
 
-
-    protected ToDoList toDoList;
 
     @FXML
     private AnchorPane createTopAnchorPane;
@@ -56,7 +53,6 @@ public class CreateListController {
 
     @FXML
     private Label createNewListError;
-
     
     @FXML
     private JFXButton cancelButton;
@@ -92,9 +88,17 @@ public class CreateListController {
                 "Shopping",
                 "General"
         ));
-        appState = AppState.getInstance(); //maintain lists 
+        appState = AppState.getInstance(); //maintain lists
+        if(appState.editPressed()){
+            createNewListTitle.setText(appState.getSelectedList().getListName());
+            createNewListDate.setValue(appState.getSelectedList().getDeadlineDate());
+            createNewListTime.setValue(appState.getSelectedList().getDeadlineTime());
+            createNewListCategory.setValue(appState.getSelectedList().getCategory());
+            createNewListButton.setText("Update");
+        }
     }
 
+   
     /**
      * createList() is an FXML onAction method associated with the create button.
      * createList() gets the data stored in the DatePicker, TimePicker, ComboBox,
@@ -104,6 +108,8 @@ public class CreateListController {
     @FXML
     void createList(ActionEvent event) {
         event.consume();
+        if(appState.editPressed())
+            updateTaskFields();
         createNewListError.setVisible(false);
         if (title.isEmpty()) {
             createNewListError.setText("New list name is required.");
@@ -127,7 +133,14 @@ public class CreateListController {
             if(category.isEmpty())
                 category = "General";
             
-            appState.addList(new ToDoList(title, category, datePart, timePart));
+            if(appState.editPressed()){
+                appState.getSelectedList().setCategory(category);
+                appState.getSelectedList().setDeadlineDate(datePart);
+                appState.getSelectedList().setDeadlineTime(timePart);
+                appState.getSelectedList().setListName(title);
+                appState.setEditPressed(false);
+            }else
+                appState.addList(new ToDoList(title, category, datePart, timePart));
             
             FXMLLoader listLoader = new FXMLLoader();
             listLoader.setLocation(getClass().getResource("/todoapp/view/ListScreen.fxml"));
@@ -145,6 +158,18 @@ public class CreateListController {
         }
     }
 
+    /**
+     * updateTaskFields manually calls the onAction methods to get the values
+     * that makeup a Task. This is necessary for repurposing the CreateListController
+     * to also act as an EditListController with minimal changes.
+     */
+    void updateTaskFields(){
+        categoryEntered(new ActionEvent());
+        deadlineEntered(new ActionEvent());
+        timeEntered(new ActionEvent());
+        titleEntered(new ActionEvent());
+    }
+    
     /**
      * categoryEntered() is an FXML onAction method associated with the 
      * ComboBox FXML element in the CreateList view. It gets the category picked
