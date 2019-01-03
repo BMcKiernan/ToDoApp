@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import todoapp.controller.ListScreenController;
 
 /**
- * 
+ * ToDoApp organizes ToDoLists in a clean graphical user interface 
  * @author Brian McKiernan
  */
 public class ToDoApp extends Application {

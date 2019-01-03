@@ -23,9 +23,9 @@ import todoapp.model.ToDoList;
 public class ListScreenController {
 
     private Stage stage;
+    private ToDoList selectedList;
     private AppState appState;
     private ObservableList<ToDoList> toDoLists;
-    private ToDoList selectedList;
 
     @FXML
     private AnchorPane listTopAnchorPane;
@@ -67,7 +67,10 @@ public class ListScreenController {
         initialize(); 
     }
     
-    
+    /**
+     * initialize() sets up the TreeTableView and includes cellValueFactories,
+     * listeners, and other necessary state setup for the application screen.
+     */
     void initialize(){
         appState = AppState.getInstance(); //add read from filesystem or db
         toDoLists = FXCollections.observableArrayList();
@@ -84,6 +87,7 @@ public class ListScreenController {
         listColumnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         listColumnCreated.setCellValueFactory(new PropertyValueFactory<>("creationTime"));
         listTableView.setItems(toDoLists);
+        //Make buttons visible when a list has been selected.
         listTableView.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldVal, newVal) -> {
                 if(newVal != null){
@@ -100,6 +104,12 @@ public class ListScreenController {
             });
     }
     
+    /**
+     * createNewList() is an FXML onAction method which is associated with the
+     * NewList button and becomes visible when the user selects a list. 
+     * createNewList() opens a screen dedicated to creating ToDoLists.
+     * @param event 
+     */
     @FXML
     void createNewList(ActionEvent event) {
         event.consume();
@@ -117,10 +127,19 @@ public class ListScreenController {
         }
     }
     
+    /**
+     * deleteList() is an FXML onAction method associated with the delete button
+     * which becomes visible when the user selects a list. deleteList() shows 
+     * a confirmation dialog before the user can delete the list and if the 
+     * user clicks yes the list is deleted from the observableArrayList used 
+     * for the TableView and from AppState.
+     * @param event 
+     */
     @FXML
     void deleteList(ActionEvent event) {
         event.consume();
-        int n = JOptionPane.showConfirmDialog(null,"Permanently delete list?", "Confirmation needed", JOptionPane.YES_NO_OPTION);
+        int n = JOptionPane.showConfirmDialog(null,"Permanently delete list?",
+                "Confirmation needed", JOptionPane.YES_NO_OPTION);
         if(n == JOptionPane.YES_OPTION){
             //calling toDoLists.remove first before appState is a bug
             //because listener - selectedList change
@@ -130,6 +149,13 @@ public class ListScreenController {
         }
     }
 
+    /**
+     * openList() is an FXML onAction method associated with the Open button 
+     * which becomes visible when the user selects a list. openList "Opens" the 
+     * selected toDoList by creating the TaskList screen which is populated 
+     * with the selectedLists Tasks.
+     * @param event 
+     */
     @FXML
     void openList(ActionEvent event) {
         event.consume();
@@ -147,6 +173,10 @@ public class ListScreenController {
         }
     }
     
+    /**
+     * populateLists() adds all of AppStates ToDolists to the ListScreens 
+     * toDoLists observableArrayList which stores the data for the TableView.
+     */
     private void populateLists(){
         //System.out.println("populateLists called: appState list size  \n" + appState.getLists().size());
         if(!appState.getLists().isEmpty()){

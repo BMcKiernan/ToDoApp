@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todoapp;
 
 import java.io.File;
@@ -17,7 +12,9 @@ import todoapp.model.AppState;
 import todoapp.model.ToDoList;
 
 /**
- *
+ * The Process State class reads and writes the serializable ToDoLists from
+ * the filesystem into AppState and vice versa when main is run setting up
+ * the application.
  * @author Brian McKiernan
  */
 public class ProcessState {
@@ -30,13 +27,22 @@ public class ProcessState {
     private FileOutputStream fos;
     private AppState appState;
     
-    
+    /**
+     * ProcessState() constructor sets up the file for reading/writing 
+     * and gets the AppState instance.
+     */
     public ProcessState(){
-        file = new File(storeFile);
+        file = new File(storeDir + File.separator + storeFile);
         System.out.println(file.getAbsolutePath());
         this.appState = AppState.getInstance();
     }
     
+    /**
+     * deserialize() reads the serialized ToDolist data from the filesystem and 
+     * initializes AppState's data.
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public void deserialize() throws IOException, ClassNotFoundException{
         ArrayList<ToDoList> toDoLists;
         if(file.exists() && !file.isDirectory()){
@@ -50,6 +56,12 @@ public class ProcessState {
         appState.setLists(toDoLists);
     }
     
+    /**
+     * serialize() reads the ToDoList data from AppState and writes the serializable 
+     * data to the filesystem
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void serialize() throws FileNotFoundException, IOException{
         if(!file.exists())
             file.createNewFile();

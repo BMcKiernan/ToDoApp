@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ToDoApp.jar" size="26220" download="eager" />
+    <jar href="ToDoApp.jar" size="26525" download="eager" />
     <jar href="lib\derby.jar" size="3232770" download="eager" />
     <jar href="lib\jdbc2_0-stdext.jar" size="6727" download="eager" />
     <jar href="lib\jfoenix-8.0.8.jar" size="2708772" download="eager" />

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todoapp.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -27,12 +22,14 @@ import todoapp.model.ToDoList;
 
 public class CreateListController {
 
-    private String title;
-    private Stage stage;
     private String category;
-    private AppState appState;
+    private String title;
     private String date;
     private String time;
+    private Stage stage;
+ 
+    private AppState appState;
+
 
     protected ToDoList toDoList;
 
@@ -71,6 +68,9 @@ public class CreateListController {
     private LocalDate datePart;
     private LocalTime timePart;
     
+    /**
+     * CreateListController() constructor initializes the CreaListController. 
+     */
     public CreateListController() {
         dateFormatter = DateTimeFormatter.ofPattern(datePattern);
         timeFormatter = DateTimeFormatter.ofPattern(timePattern);
@@ -83,12 +83,6 @@ public class CreateListController {
 
     public void start(Stage stage) {
         this.stage = stage;
-        /*
-        * Because JFTextField sucks and its "onAction" only gets the input if 
-        * the ENTER key is pressed this listener continuosly updates the String
-        * being typed into the text field and saves it in the event that the user
-        * doesn't type enter at the end cause why would they.
-        */
         createNewListTitle.textProperty().addListener((observ, oldVal, newVal) -> {
             title = newVal;
         });
@@ -101,6 +95,12 @@ public class CreateListController {
         appState = AppState.getInstance(); //maintain lists 
     }
 
+    /**
+     * createList() is an FXML onAction method associated with the create button.
+     * createList() gets the data stored in the DatePicker, TimePicker, ComboBox,
+     * and TextBox FXML elements.
+     * @param event 
+     */
     @FXML
     void createList(ActionEvent event) {
         event.consume();
@@ -110,7 +110,6 @@ public class CreateListController {
             createNewListError.setVisible(true);
         }
         if (!title.isEmpty()) {
-            ToDoList newList;
             if(!date.isEmpty() && !time.isEmpty()){
                 datePart = LocalDate.parse(date);
                 timePart = LocalTime.parse(time);
@@ -141,17 +140,28 @@ public class CreateListController {
                 stage.show();
 
             } catch (IOException ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
             }
         }
     }
 
+    /**
+     * categoryEntered() is an FXML onAction method associated with the 
+     * ComboBox FXML element in the CreateList view. It gets the category picked
+     * for new list creation.
+     * @param event 
+     */
     @FXML //createNewListCategory
     void categoryEntered(ActionEvent event) {
         event.consume();
         category = createNewListCategory.getValue();
     }
 
+    /**
+     * deadlineEntered() is an FXML onAction method associated with the DatePicker
+     * FXML element. deadlineEntered() gets the date date value from the picker.
+     * @param event 
+     */
     @FXML
     void deadlineEntered(ActionEvent event) {
         event.consume();
@@ -160,6 +170,11 @@ public class CreateListController {
         }
     }
 
+    /**
+     * timeEntered() is an FXML onAction method associated with the FXML
+     * TimePicker. timeEntered() gets the time value from the picker.
+     * @param event 
+     */
     @FXML
     void timeEntered(ActionEvent event) {
         event.consume();
@@ -167,7 +182,15 @@ public class CreateListController {
             time = createNewListTime.getValue().format(timeFormatter);
         }
     }
-
+    
+    /**
+     * titleEntered() is an FMXL onAction method associated with the TextBox
+     * FXML element. This method gets the title entered from the the TextBox 
+     * element. This method only works if enter is pressed after a title has 
+     * been entered into the TextBox so a listener in the start method also 
+     * detects the title TextBox input changes.
+     * @param event 
+     */
     @FXML //JFoenix apparently only counts ENTER as actionevent
     void titleEntered(ActionEvent event) {
         event.consume();
@@ -180,7 +203,12 @@ public class CreateListController {
         }
     }
     
-    
+    /**
+     * cancelPushed() is an FXML onAction method associated with the return 
+     * button in the CreateList screen. This method allows the user to return to
+     * the ListScreen in the event that they no longer wish to create a new list.
+     * @param event 
+     */
     @FXML
     void cancelPushed(ActionEvent event) {
         FXMLLoader listLoader = new FXMLLoader();
