@@ -7,9 +7,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="listTopAnchorPane" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #1976d2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.controller.ListScreenController">
+<AnchorPane id="AnchorPane" fx:id="listTopAnchorPane" prefHeight="600" prefWidth="950.0" style="-fx-background-color: #1976d2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.controller.ListScreenController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="343.0" layoutY="14.0" prefHeight="53.0" prefWidth="114.0" text="To-Do" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="343.0" AnchorPane.rightAnchor="343.0">
+
          <font>
             <Font size="36.0" />
          </font>
@@ -34,6 +35,7 @@
       <AnchorPane fx:id="listInnerAnchorpane" layoutX="6.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
          <children>
             <TableView fx:id="listTableView" layoutX="20.0" layoutY="38.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="760.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="38.0">
+
               <columns>
                 <TableColumn fx:id="listColumnListName" editable="false" prefWidth="233.0" text="List Name" />
                 <TableColumn fx:id="listColumnCategory" editable="false" prefWidth="111.0" text="Category" />

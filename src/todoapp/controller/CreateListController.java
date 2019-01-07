@@ -1,16 +1,16 @@
 package todoapp.controller;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
-
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,9 +18,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+
+import javafx.stage.Stage;
 import todoapp.model.AppState;
 import todoapp.model.ToDoList;
 
@@ -60,17 +63,21 @@ public class CreateListController {
 
     @FXML
     private JFXTimePicker createNewListTime;
+
     
     @FXML Label labelDeadline;
+
 
     @FXML
     private Label createNewListError;
     
     @FXML
     private JFXButton cancelButton;
+
     
     @FXML
     private GridPane deadlineGridPane;	
+
 
     private static final String datePattern = "yyyy-MM-dd";
     private static DateTimeFormatter dateFormatter;
@@ -94,6 +101,7 @@ public class CreateListController {
 
     public void start(Stage stage) {
         this.stage = stage;
+
         createNewListDate.setConverter(new StringConverter<LocalDate>() {
         	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         
@@ -189,6 +197,7 @@ public class CreateListController {
                 stage.close();
                 listScreenController.start(stage);
                 stage.setScene(new Scene(root, 950, 600));
+
                 stage.setResizable(true);
                 stage.show();
 

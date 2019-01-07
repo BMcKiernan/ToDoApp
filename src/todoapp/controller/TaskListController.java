@@ -1,16 +1,15 @@
 package todoapp.controller;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
 import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
-
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -272,6 +271,7 @@ public class TaskListController {
             ListScreenController listScreenController = listLoader.getController();
             stage.close();
             listScreenController.start(stage);
+
             stage.setScene(new Scene(root, 950, 600));
             stage.show();
         } catch (IOException ex) {
@@ -296,6 +296,7 @@ public class TaskListController {
             TreeItem<Task> selectedItem = taskSM.getModelItem(row);
             TreeItem<Task> foundItem = null; //item to be searched for in root
             List<TreeItem<Task>> rootChilds = treeRootItem.getChildren();
+
 
             for(TreeItem<Task> childItem: rootChilds){
                 if(selectedItem.equals(childItem)){
@@ -338,6 +339,7 @@ public class TaskListController {
                 //TreeItem<Task> taskItem = new TreeItem(newTask);
                 taskSM = listTreeTableView.getSelectionModel();
                 if(validateDateCell(date, 1)){
+
                     addNewSubTask(new Task(description, LocalDate.parse(date)));
                     listTextField.clear();
                 }
@@ -418,6 +420,7 @@ public class TaskListController {
      * @param subString String representation of a LocalDate
      * @return boolean
      */
+
     private boolean validateDateCell(String subString, int callingLocation){
         /*
          *flag == 0 is rootItem, flag == 1 is rootItemChild, flag == 2 is nested item
@@ -432,6 +435,7 @@ public class TaskListController {
             errorLabel.setVisible(true);
             return false;
         }
+
         /* (callingLocation == 1 && flag == 1) <--> parse selectedItem rootChildItem which is parent of new subTask being created
          * (callingLocation == 1 && flag == 2) <--> parse selectedItem nestedItem which is parent of new subTask being created
          * (callingLocation == 2  && flag == 2) <--> parse selectedItem.getParent() which is parent of treeItem being edited in cFactory
@@ -450,6 +454,7 @@ public class TaskListController {
                 return false;
             }
         }
+
         /* (callingLocation == 2 && flag == 1) <--> parse rootItem which is parent of treeItem being edited in cFactory
          * (flag = 0) <--> parse rootItem which is parent of new Task being created
          * !! only callingLocatgion == 0 will get flag == 0 in taskSM.selectedItemProperty().addListener
