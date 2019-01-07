@@ -20,6 +20,11 @@ import javax.swing.JOptionPane;
 import todoapp.model.AppState;
 import todoapp.model.ToDoList;
 
+/**
+ * ListScreenController is the main screen greeting the user when the application
+ * starts, it is comprised of the ToDoLists the user has created previously.
+ * @author Brian McKiernan
+ */
 public class ListScreenController {
 
     private Stage stage;

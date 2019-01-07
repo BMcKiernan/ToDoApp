@@ -20,6 +20,12 @@ import javafx.stage.Stage;
 import todoapp.model.AppState;
 import todoapp.model.ToDoList;
 
+/**
+ * CreateListController allows the user to create new ToDoLists and also doubles
+ * as the EditListController with a few modifications to the CreateListControllers
+ * static FXML properties.
+ * @author Brian McKiernan
+ */
 public class CreateListController {
 
     private String category;
@@ -108,8 +114,9 @@ public class CreateListController {
     @FXML
     void createList(ActionEvent event) {
         event.consume();
-        if(appState.editPressed())
+        if(appState.editPressed()){
             updateTaskFields();
+        }
         createNewListError.setVisible(false);
         if (title.isEmpty()) {
             createNewListError.setText("New list name is required.");
@@ -154,7 +161,7 @@ public class CreateListController {
                 stage.show();
 
             } catch (IOException ex) {
-                //ex.printStackTrace();
+                ex.printStackTrace();
             }
         }
     }
@@ -237,6 +244,9 @@ public class CreateListController {
      */
     @FXML
     void cancelPushed(ActionEvent event) {
+        if(appState.editPressed()){
+            appState.setEditPressed(false);
+        }
         FXMLLoader listLoader = new FXMLLoader();
         listLoader.setLocation(getClass().getResource("/todoapp/view/ListScreen.fxml"));
         try {

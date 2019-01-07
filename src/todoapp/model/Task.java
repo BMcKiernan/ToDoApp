@@ -81,6 +81,14 @@ public class Task extends RecursiveTreeObject<Task> implements Serializable {
     }
     
     /**
+     * removeSubTask removes a selected Task from the Tasks list of subTasks.
+     * @param subTask 
+     */
+    public void removeSubTask(Task subTask){
+        this.subTasks.remove(subTask);
+    }
+    
+    /**
      * getSubTasks returns this Tasks list of Tasks.
      * @return subTasks list
      */
@@ -102,6 +110,11 @@ public class Task extends RecursiveTreeObject<Task> implements Serializable {
      * @param complete boolean to be set
      */
     public void setComplete(boolean complete){
+        if(!subTasks.isEmpty() && complete == true){
+            subTasks.forEach((task) -> {
+                task.setComplete(complete);
+            });
+        }
         this.complete = complete;
     }
     

@@ -18,7 +18,6 @@ import todoapp.model.ToDoList;
  * @author Brian McKiernan
  */
 public class ProcessState {
-    private static final String storeDir = "dat";
     private static final String storeFile = "AppState.dat";
     private File file;
     private ObjectInputStream ois;
@@ -32,7 +31,7 @@ public class ProcessState {
      * and gets the AppState instance.
      */
     public ProcessState(){
-        file = new File(storeDir + File.separator + storeFile);
+        file = new File(storeFile);
         System.out.println(file.getAbsolutePath());
         this.appState = AppState.getInstance();
     }
