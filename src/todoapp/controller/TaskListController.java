@@ -1,15 +1,17 @@
 package todoapp.controller;
 
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
 import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -124,7 +126,7 @@ public class TaskListController {
     public void initialize() {
         taskSM = listTreeTableView.getSelectionModel();
         appState = AppState.getInstance();
-          System.out.println("appState " + appState.getTasks());
+//        System.out.println("appState " + appState.getTasks());
         dateFormatter = DateTimeFormatter.ofPattern(pattern);
         description = "";
         date = "";
@@ -188,9 +190,9 @@ public class TaskListController {
         taskSM.selectedItemProperty().addListener(
             (obs, oldVal, newVal) -> {
                 flag = 99;
-                System.out.println(oldVal +" -> " + newVal);
+//                System.out.println(oldVal +" -> " + newVal);
                 if(newVal != null){
-                    System.out.println("Task name: " + newVal.getValue().getDescription() + " " + taskSM.getSelectedIndex());
+//                    System.out.println("Task name: " + newVal.getValue().getDescription() + " " + taskSM.getSelectedIndex());
                     if(!treeRootItem.getChildren().isEmpty()){
                         List<TreeItem<Task>> rootChildren = treeRootItem.getChildren();
                         for(TreeItem<Task> rootChild : rootChildren){
@@ -214,8 +216,8 @@ public class TaskListController {
                 }
                 if(flag == 0)
                     listDeleteButton.setVisible(false);
-                else if(flag == 99)
-                    System.out.println("\nWhat the hell\n");
+//                else if(flag == 99)
+//                    System.out.println("\nWhat the hell\n");
                 else
                     listDeleteButton.setVisible(true);
             });
@@ -223,9 +225,8 @@ public class TaskListController {
         listTextField.textProperty().addListener((observ, oldVal, newVal) -> {
             errorLabel.setVisible(false);
             description = newVal;
-        });
-    }
-    
+        });  
+    }    
     /**
      * descriptionEntered is an FXML onAction method which gets the entered
      * description of the Task which is to be created.
@@ -319,8 +320,8 @@ public class TaskListController {
             if(treeRootItem.getChildren().isEmpty()){
                 listDeleteButton.setVisible(false);
             }
-            System.out.println("\ndeleteTask \n" + treeRootItem.getChildren());
-            System.out.println("appState " + appState.getTasks());
+//            System.out.println("\ndeleteTask \n" + treeRootItem.getChildren());
+//            System.out.println("appState " + appState.getTasks());
         }
     }
     
