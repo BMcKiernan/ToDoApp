@@ -23,11 +23,11 @@
          <font>
             <Font size="15.0" />
          </font></JFXButton>
-      <JFXButton fx:id="listOpenButton" layoutX="705.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openList" prefHeight="30.0" prefWidth="141.0" style="-fx-background-color: #484848;" text="Open List Items" textFill="WHITE" visible="false" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0">
+      <JFXButton fx:id="listOpenButton" layoutX="705.0" layoutY="40.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#openList" prefHeight="30.0" prefWidth="141.0" style="-fx-background-color: #484848;" text="Add List Items" textFill="WHITE" visible="false" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="15.0" />
          </font></JFXButton>
-      <JFXButton fx:id="listEditButton" layoutX="608.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editSelectedList" prefHeight="30.0" prefWidth="141.0" style="-fx-background-color: #009688;" text="Edit List Details" textFill="WHITE" visible="false" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="7.0">
+      <JFXButton fx:id="listEditButton" layoutX="608.0" layoutY="7.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#editSelectedList" prefHeight="30.0" prefWidth="141.0" style="-fx-background-color: #009688;" text="Edit List Details" textFill="WHITE" visible="false" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="7.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -43,11 +43,6 @@
                   <TableColumn fx:id="listColumnDeadline" editable="false" prefWidth="252.0" text="Deadline" />
               </columns>
             </TableView>
-            <Label fx:id="listScreenLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="37.0" prefWidth="950.0" text="ToDoLists" textFill="#009688" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
    </children>

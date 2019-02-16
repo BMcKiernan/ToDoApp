@@ -37,7 +37,7 @@
                   <Label fx:id="errorLabel" alignment="CENTER" prefHeight="17.0" prefWidth="800.0" text="Label" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
-      <JFXButton fx:id="listDeleteButton" layoutX="694.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteTask" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #F44336;" text="Delete Item" textFill="WHITE" visible="false" AnchorPane.rightAnchor="5.0">
+      <JFXButton fx:id="listDeleteButton" layoutX="694.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteTask" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #F44336;" text="Delete Item" textFill="WHITE" AnchorPane.rightAnchor="5.0">
          <font>
             <Font size="15.0" />
          </font></JFXButton>

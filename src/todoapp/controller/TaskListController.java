@@ -1,14 +1,17 @@
 package todoapp.controller;
 
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
 import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +21,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellEditEvent;
 import javafx.scene.control.TreeTableView;
@@ -28,6 +30,7 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import todoapp.model.AppState;
 import todoapp.model.Task;
 
@@ -96,6 +99,23 @@ public class TaskListController {
     public void start(Stage stage) {
         listDeleteButton.setVisible(false);
         this.stage = stage;
+        listDatePicker.setConverter(new StringConverter<LocalDate>() {
+        	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        	@Override
+        	public String toString(LocalDate localDate) {
+        		if(localDate == null)
+        			return "";
+        		return dateTimeFormatter.format(localDate);
+        	}
+        	
+        	@Override
+        	public LocalDate fromString(String dateString) {
+        		if(dateString == null || dateString.trim().isEmpty())
+        			return null;
+        		return LocalDate.parse(dateString,  dateTimeFormatter);
+        	}
+        });
     }
     
     /**
@@ -106,7 +126,7 @@ public class TaskListController {
     public void initialize() {
         taskSM = listTreeTableView.getSelectionModel();
         appState = AppState.getInstance();
-          System.out.println("appState " + appState.getTasks());
+//        System.out.println("appState " + appState.getTasks());
         dateFormatter = DateTimeFormatter.ofPattern(pattern);
         description = "";
         date = "";
@@ -157,7 +177,7 @@ public class TaskListController {
         completionDateColumn.setOnEditCommit(new EventHandler<CellEditEvent<Task, String>>() {
             @Override
             public void handle(CellEditEvent<Task, String> t) {
-                if(validateDateCell(t.getNewValue())){
+                if(validateDateCell(t.getNewValue(), 2)){
                     t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow())
                             .getValue().setCompletionDate(t.getNewValue());
                 }else
@@ -170,9 +190,9 @@ public class TaskListController {
         taskSM.selectedItemProperty().addListener(
             (obs, oldVal, newVal) -> {
                 flag = 99;
-                System.out.println(oldVal +" -> " + newVal);
+//                System.out.println(oldVal +" -> " + newVal);
                 if(newVal != null){
-                    System.out.println("Task name: " + newVal.getValue().getDescription() + " " + taskSM.getSelectedIndex());
+//                    System.out.println("Task name: " + newVal.getValue().getDescription() + " " + taskSM.getSelectedIndex());
                     if(!treeRootItem.getChildren().isEmpty()){
                         List<TreeItem<Task>> rootChildren = treeRootItem.getChildren();
                         for(TreeItem<Task> rootChild : rootChildren){
@@ -196,8 +216,8 @@ public class TaskListController {
                 }
                 if(flag == 0)
                     listDeleteButton.setVisible(false);
-                else if(flag == 99)
-                    System.out.println("\nWhat the hell\n");
+//                else if(flag == 99)
+//                    System.out.println("\nWhat the hell\n");
                 else
                     listDeleteButton.setVisible(true);
             });
@@ -205,9 +225,8 @@ public class TaskListController {
         listTextField.textProperty().addListener((observ, oldVal, newVal) -> {
             errorLabel.setVisible(false);
             description = newVal;
-        });
-    }
-    
+        });  
+    }    
     /**
      * descriptionEntered is an FXML onAction method which gets the entered
      * description of the Task which is to be created.
@@ -253,7 +272,8 @@ public class TaskListController {
             ListScreenController listScreenController = listLoader.getController();
             stage.close();
             listScreenController.start(stage);
-            stage.setScene(new Scene(root));
+
+            stage.setScene(new Scene(root, 950, 600));
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -278,7 +298,8 @@ public class TaskListController {
             TreeItem<Task> foundItem = null; //item to be searched for in root
             List<TreeItem<Task>> rootChilds = treeRootItem.getChildren();
 
-            for(TreeItem childItem: rootChilds){
+
+            for(TreeItem<Task> childItem: rootChilds){
                 if(selectedItem.equals(childItem)){
                     foundItem = childItem;
                 }
@@ -299,8 +320,8 @@ public class TaskListController {
             if(treeRootItem.getChildren().isEmpty()){
                 listDeleteButton.setVisible(false);
             }
-            System.out.println("\ndeleteTask \n" + treeRootItem.getChildren());
-            System.out.println("appState " + appState.getTasks());
+//            System.out.println("\ndeleteTask \n" + treeRootItem.getChildren());
+//            System.out.println("appState " + appState.getTasks());
         }
     }
     
@@ -318,7 +339,8 @@ public class TaskListController {
             if(!date.isEmpty()){
                 //TreeItem<Task> taskItem = new TreeItem(newTask);
                 taskSM = listTreeTableView.getSelectionModel();
-                if(validateDateCell(date)){
+                if(validateDateCell(date, 1)){
+
                     addNewSubTask(new Task(description, LocalDate.parse(date)));
                     listTextField.clear();
                 }
@@ -340,7 +362,7 @@ public class TaskListController {
      */
     private void addNewSubTask(Task newTask){
         errorLabel.setVisible(false);
-        TreeItem<Task> taskItem = new TreeItem(newTask);
+        TreeItem<Task> taskItem = new TreeItem<>(newTask);
         TreeItem<Task> selectedItem;
         taskSM = listTreeTableView.getSelectionModel();
         selectedItem = taskSM.getModelItem(taskSM.getSelectedIndex());
@@ -399,9 +421,14 @@ public class TaskListController {
      * @param subString String representation of a LocalDate
      * @return boolean
      */
-    private boolean validateDateCell(String subString){
-        errorLabel.setVisible(false);
-        LocalDate parentDate;
+
+    private boolean validateDateCell(String subString, int callingLocation){
+        /*
+         *flag == 0 is rootItem, flag == 1 is rootItemChild, flag == 2 is nested item
+         *callingLocatgion == 1 is createTask, callingLocation == 2 is setCellFactory completionDateColumn
+         */
+    	errorLabel.setVisible(false);
+        LocalDate parentDate = null;
         LocalDate present = LocalDate.now();
         taskSM = listTreeTableView.getSelectionModel();
         if(subString.isEmpty() || !validDate(subString)){
@@ -409,26 +436,43 @@ public class TaskListController {
             errorLabel.setVisible(true);
             return false;
         }
-        if(flag == 2){
-            parentDate = LocalDate.parse(selectedItem.getParent().getValue().getCompletionDate());
+
+        /* (callingLocation == 1 && flag == 1) <--> parse selectedItem rootChildItem which is parent of new subTask being created
+         * (callingLocation == 1 && flag == 2) <--> parse selectedItem nestedItem which is parent of new subTask being created
+         * (callingLocation == 2  && flag == 2) <--> parse selectedItem.getParent() which is parent of treeItem being edited in cFactory
+         */
+        if((callingLocation == 1 && flag == 1) || flag == 2){
+        	if((flag == 2 && callingLocation == 1) || (flag == 1 && callingLocation == 1)) {
+        		parentDate = LocalDate.parse(selectedItem.getValue().getCompletionDate());
+        	}
+        	if(flag == 2 && callingLocation == 2) {
+        		parentDate = LocalDate.parse(selectedItem.getParent().getValue().getCompletionDate());
+        	}
             if(LocalDate.parse(subString).isAfter(parentDate)){
-                errorLabel.setText("Sub task completion date must be before"
-                        + " or equal to parent task's completion date");
+                errorLabel.setText("Sub task completion date must not occur"
+                        + " after it's selected containing task's completion date");
                 errorLabel.setVisible(true);
                 return false;
             }
         }
-        if(flag == 1 || flag == 0){
+
+        /* (callingLocation == 2 && flag == 1) <--> parse rootItem which is parent of treeItem being edited in cFactory
+         * (flag = 0) <--> parse rootItem which is parent of new Task being created
+         * !! only callingLocatgion == 0 will get flag == 0 in taskSM.selectedItemProperty().addListener
+         * because user can never select rootItem, its only selected by default when no Task in TreeTableView is selected
+         * and -> a new Task is being added to the rootItem of the TreeTableView.!!
+         */
+        if((callingLocation == 2 && flag == 1) || flag == 0){
             parentDate = LocalDate.parse(rootTask.getCompletionDate());
             if(LocalDate.parse(subString).isAfter(parentDate)){
-                errorLabel.setText("Sub task completion date cannot be after the TodoList: "
-                        + appState.getSelectedList().getListName() +"'s deadline");
+                errorLabel.setText("This Task's completion date cannot occur after \""
+                        + appState.getSelectedList().getListName() +"s\" deadline");
                 errorLabel.setVisible(true);
                 return false;
             }
         }
         if(LocalDate.parse(subString).isBefore(present)){ 
-            errorLabel.setText("The completion date cannot be in the past");
+            errorLabel.setText("Completion date cannot be in the past");
             errorLabel.setVisible(true);
             return false;
         }

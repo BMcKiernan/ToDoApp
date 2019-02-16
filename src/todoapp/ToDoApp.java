@@ -26,7 +26,7 @@ public class ToDoApp extends Application {
         AnchorPane root = (AnchorPane) loader.load();
         ListScreenController listController = loader.getController();
         listController.start(stage);
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 950, 600);
         stage.setScene(scene);
 //        stage.setResizable(false);
 //        stage.sizeToScene();

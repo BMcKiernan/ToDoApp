@@ -1,5 +1,7 @@
 package todoapp.controller;
 
+
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -16,6 +18,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.util.StringConverter;
+
 import javafx.stage.Stage;
 import todoapp.model.AppState;
 import todoapp.model.ToDoList;
@@ -57,11 +64,20 @@ public class CreateListController {
     @FXML
     private JFXTimePicker createNewListTime;
 
+    
+    @FXML Label labelDeadline;
+
+
     @FXML
     private Label createNewListError;
     
     @FXML
     private JFXButton cancelButton;
+
+    
+    @FXML
+    private GridPane deadlineGridPane;	
+
 
     private static final String datePattern = "yyyy-MM-dd";
     private static DateTimeFormatter dateFormatter;
@@ -85,6 +101,30 @@ public class CreateListController {
 
     public void start(Stage stage) {
         this.stage = stage;
+
+        createNewListDate.setConverter(new StringConverter<LocalDate>() {
+        	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        	@Override
+        	public String toString(LocalDate localDate) {
+        		if(localDate == null)
+        			return "";
+        		return dateTimeFormatter.format(localDate);
+        	}
+        	
+        	@Override
+        	public LocalDate fromString(String dateString) {
+        		if(dateString == null || dateString.trim().isEmpty())
+        			return null;
+        		return LocalDate.parse(dateString,  dateTimeFormatter);
+        	}
+        });
+        labelDeadline.setStyle("-fx-text-fill: grey;");
+        deadlineGridPane.setStyle("-fx-border-style: solid inside;" + 
+                      "-fx-border-width: 2;" +
+                      "-fx-border-insets: 5;" + 
+                      "-fx-border-radius: 5;" + 
+                      "-fx-border-color: lightgrey;");
         createNewListTitle.textProperty().addListener((observ, oldVal, newVal) -> {
             title = newVal;
         });
@@ -97,7 +137,7 @@ public class CreateListController {
         appState = AppState.getInstance(); //maintain lists
         if(appState.editPressed()){
             createNewListTitle.setText(appState.getSelectedList().getListName());
-            createNewListDate.setValue(appState.getSelectedList().getDeadlineDate());
+            createNewListDate.setValue(LocalDate.parse(appState.getSelectedList().getDeadlineDate().format(dateFormatter)));
             createNewListTime.setValue(appState.getSelectedList().getDeadlineTime());
             createNewListCategory.setValue(appState.getSelectedList().getCategory());
             createNewListButton.setText("Update");
@@ -156,7 +196,8 @@ public class CreateListController {
                 ListScreenController listScreenController = listLoader.getController();
                 stage.close();
                 listScreenController.start(stage);
-                stage.setScene(new Scene(root));
+                stage.setScene(new Scene(root, 950, 600));
+
                 stage.setResizable(true);
                 stage.show();
 
@@ -254,7 +295,7 @@ public class CreateListController {
             ListScreenController listScreenController = listLoader.getController();
             stage.close();
             listScreenController.start(stage);
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root, 950, 600));
             stage.setResizable(true);
             stage.show();
 

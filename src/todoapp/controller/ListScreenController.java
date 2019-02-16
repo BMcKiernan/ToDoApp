@@ -1,22 +1,30 @@
 package todoapp.controller;
 
-import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import javax.swing.JOptionPane;
+
+import com.jfoenix.controls.JFXButton;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
+import javafx.util.Callback;
 import todoapp.model.AppState;
 import todoapp.model.ToDoList;
 
@@ -65,6 +73,9 @@ public class ListScreenController {
     @FXML
     private TableColumn<ToDoList, LocalDateTime> listColumnDeadline;
 
+    @FXML
+    private Label listScreenLabel;
+
     private TableColumn<ToDoList, LocalDate> listColumnDeadlineDate;
     private TableColumn<ToDoList, LocalTime> listColumnDeadlineTime;
 
@@ -73,6 +84,13 @@ public class ListScreenController {
         this.stage = stage;
         //no class constructor so init doesn't automatically get called
         initialize(); 
+        ToDoList selected = listTableView.getSelectionModel().getSelectedItem();
+        if(toDoLists.isEmpty())
+        	listScreenLabel.setText("Create a new ToDoList and lets get started!");
+        if(!toDoLists.isEmpty() && selected != null)
+        	listScreenLabel.setText("Currently selected: "+selectedList.getListName());
+        if(!toDoLists.isEmpty() && selected == null)
+        	listScreenLabel.setText("Select a ToDoList to see more options");
     }
     
     /**
@@ -96,16 +114,40 @@ public class ListScreenController {
         listColumnCreated.setCellValueFactory(new PropertyValueFactory<>("creationTime"));
         listTableView.setItems(toDoLists);
         //Make buttons visible when a list has been selected.
+        listTableView.setRowFactory(new Callback<TableView<ToDoList>, TableRow<ToDoList>>(){
+        	@Override
+        	public TableRow<ToDoList> call(TableView<ToDoList> tableView){
+        		final TableRow<ToDoList> row = new TableRow<>();
+        		row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>(){
+        			@Override
+        			public void handle(MouseEvent event) {
+        				final int index = row.getIndex();
+        				if(index >= 0 && index < listTableView.getItems().size() && listTableView.getSelectionModel().isSelected(index)) {
+        					listTableView.getSelectionModel().clearSelection();
+        					event.consume();
+        				}
+        			}
+        		});
+        		return row;		
+        	}
+        });
+        
+        
         listTableView.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldVal, newVal) -> {
                 if(newVal != null){
                     selectedList = newVal;
                     appState.setSelectedList(selectedList);
+                    listScreenLabel.setText("Currently selected: "+selectedList.getListName());
                     listDeleteButton.setVisible(true);
                     listEditButton.setVisible(true);
                     listOpenButton.setVisible(true);
                 }else{
-                    selectedList = null;
+                	if(toDoLists.isEmpty())
+                		listScreenLabel.setText("Create a new ToDoList and lets get started!");
+                    if(!toDoLists.isEmpty())                    	
+                    	listScreenLabel.setText("Select a ToDoList to see more options");
+                	selectedList = null;
                     appState.setSelectedList(null);
                     listDeleteButton.setVisible(false);
                     listEditButton.setVisible(false);
@@ -130,8 +172,7 @@ public class ListScreenController {
             CreateListController createListScreen = listLoader.getController();
             stage.close();
             createListScreen.start(stage);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            Scene scene = new Scene(root, 950, 600);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.sizeToScene();
@@ -187,7 +228,7 @@ public class ListScreenController {
             TaskListController taskListScreen = taskLoader.getController();
             stage.close();
             taskListScreen.start(stage);
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root, 950, 600));
             stage.setResizable(true);
             stage.show();
         }catch(IOException ex){
